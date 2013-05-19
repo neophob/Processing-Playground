@@ -1,0 +1,61 @@
+100 Triangles
+round: 295002	best: 1016.7922	temp: 3.9160526	fps:97.621475
+
+50 Triangles
+round: 295002	best: 1263.056	temp: 3.9160526	fps:133.79346
+
+200 Triangles
+round: 296002	best: 814.6342	temp: 1.0058941	fps:65.92185
+
+400 Triangles
+round: 296002	best: 724.5457	temp: 1.0058941	fps:40.009716
+
+
+---
+
+Opt
+
+coolingrate: 0.0005
+round: 68002	best: 870.02185	temp: 1.0003755	fps:125.11703	needed time in s: 282
+round: 112002	best: 788.03925	temp: 2.9925082	fps:125.64231	needed time in s: 453
+
+coolingrate: 0.001
+round: 42002	best: 861.72577	temp: 1.0620624	fps:132.28741	needed time in s: 177
+round: 56002	best: 786.1399	temp: 1.0337642	fps:104.46735	needed time in s: 232
+round: 72002	best: 746.68475	temp: 1.2747519	fps:123.79316	needed time in s: 295
+
+coolingrate: 0.005
+round: 45002	best: 862.5828	temp: 1.3981808	fps:143.02385	needed time in s: 185
+
+coolingrate: 0.003
+round: 32002	best: 870.0639	temp: 1.1378349	fps:120.7256	needed time in s: 139
+
+
+increased vector size from 400 -> 600
+round: 41002	best: 872.75256	temp: 1.0157254	fps:106.85313	needed time in s: 196
+round: 100002	best: 703.4593	temp: 1.0986915	fps:108.46714	needed time in s: 475
+
+
+return color(20+int(random(255)), 32); -> return color(20+int(random(235)), 16+int(random(32)));
+round: 35002	best: 862.6967	temp: 1.2159644	fps:98.25914	needed time in s: 168
+
+
+reset sim:  temp = 1.25; (1.5) und coolingRate = 0.001; (war 0.0001)
+round: 45002	best: 834.7486	temp: 1.1524917	fps:108.41428	needed time in s: 215
+round: 127002	best: 624.5092	temp: 1.0613147	fps:105.63457	needed time in s: 600
+
+increased vector size from 600 -> 1000
+round: 41002	best: 807.79517	temp: 1.2276906	fps:88.28504	needed time in s: 253
+round: 151002	best: 618.60345	temp: 1.1108067	fps:83.667625	needed time in s: 917
+round: 199002	best: 596.273	temp: 1.1973643	fps:85.455666	needed time in s: 1204
+round: 204002	best: 590.98224	temp: 1.1677872	fps:81.890274	needed time in s: 1234
+
+vectorsize = 768, do not change coolingRate = 0.001; after first loop, add option for smaller triangles
+round: 25002	best: 872.5845	temp: 1.2350672	fps:130.52454	needed time in s: 124
+round: 78002	best: 641.1341	temp: 1.0564245	fps:104.59377	needed time in s: 374
+
+change color function, return color(20+int(random(235)), 16+int(random(32))); -> return color(rcol, random(255));
+round: 17002	best: 880.72485	temp: 1.1354157	fps:113.03388	needed time in s: 83
+round: 48002	best: 573.84576	temp: 1.1491436	fps:118.10993	needed time in s: 222
+round: 61002	best: 547.5661	temp: 1.0190141	fps:117.549065	needed time in s: 279
+round: 101002	best: 469.94904	temp: 1.2350672	fps:145.12805	needed time in s: 463
