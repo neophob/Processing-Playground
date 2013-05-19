@@ -57,19 +57,16 @@ class Mona {
         int src = srcColor[srcOfs]&255;
         int dst = pixels[ofs]&255;
         float diffR = diffAbs(src,dst);
-//        float diffR = (float)(red(src)-dst)/255f;
         
         float pixelFitness;
         if (COLOR_MODE) {
           src = (srcColor[srcOfs]>>16)&255;
           dst = (pixels[ofs]>>16)&255;
-//          float diffG = (float)(blue(src)-dst)/255f;
           float diffG = diffAbs(src,dst);
           
           src = (srcColor[srcOfs]>>8)&255;
           dst = (pixels[ofs]>>8)&255;
           float diffB = diffAbs(src,dst);
-//          float diffB = (float)(green(src)-dst)/255f;
           pixelFitness = diffR*diffR + diffG*diffG + diffB*diffB;
         } else {
           pixelFitness = diffR*diffR;

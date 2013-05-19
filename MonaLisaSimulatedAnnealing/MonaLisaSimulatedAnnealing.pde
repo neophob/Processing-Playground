@@ -19,6 +19,8 @@ PImage monaImg;
 
 final boolean COLOR_MODE = true;
 
+final int BORDER_SIZE = 30;
+
 int[] srcColor;
 
 Mona m;
@@ -42,7 +44,8 @@ void setup() {
   srcColor = monaImg.pixels;
   monaImg.updatePixels();
   
-  size(monaImg.width*3, monaImg.height, P3D);
+  size(monaImg.width*3, monaImg.height+BORDER_SIZE, P3D);
+  background(0);  
   image(monaImg, monaImg.width*2, 0);
 
   m = new Mona();
@@ -50,7 +53,7 @@ void setup() {
 }
 
 boolean finished=false;
-boolean a=false;
+boolean savedImage=false;
 int round;
 
 void draw() {
@@ -59,17 +62,23 @@ void draw() {
     finished=simulateAnnealing();
   } 
   else {
-    if (!a) {
+    if (!savedImage) {
       saveImage();
-      a=true;
+      savedImage=true;
     }
     finished = false; 
     resetSim();
   }
 
-  if (round++%1000==1) {
+  if (round++%100==1) {
+    fill(50);
+    rect(0, monaImg.height, monaImg.width*3, BORDER_SIZE);
+    fill(255);
     long time = (System.currentTimeMillis()-start)/1000;
-    println("round: "+round+"\tbest: "+bestFitness+"\ttemp: "+temp+"\tfps:"+frameRate+"\tneeded time in s: "+time);
+    long last = (System.currentTimeMillis()-lastBest)/1000;
+    String fitn = nf(bestFitness,0,2);
+    String s = "round: "+round+" :: best: "+fitn+" :: temp: "+int(temp)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago";
+    text(s, 4, monaImg.height+BORDER_SIZE/2); 
   }
 }
 

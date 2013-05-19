@@ -63,7 +63,7 @@ class Triangle {
     if (vSelect>5) {
       vSelect=0;
       r++;
-      if (r>21) r=0;
+      if (r>20) r=0;
     }
     else
       vSelect++;
