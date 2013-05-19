@@ -1,20 +1,10 @@
-//best 3203
-//3143, round 128'000
-//3002, round 145'000
-//2806, roung 158'000
-//2263, round 175'000
-//1508, round 200'000 start looking link mona
-//1051, round 226'000
-
-//3543, round 128'000
-//3308, round 145'000
-//2236, round 175'000
-//1532, round 200'000 start looking link mona
-//1065, round 226'000
-
-//1572, round 200'000 s
-//1149, round 222'000
-
+/*
+ideas:
+  -split image up in multiple parts and verify which are the badest parts.
+   update triangles there
+  -compare current result with "Random Sampling" heuristic
+  
+*/
 PImage monaImg;
 
 final boolean COLOR_MODE = true;
@@ -34,11 +24,12 @@ void setup() {
     colorMode(RGB, 255);
   }
   
-  monaImg = loadImage("mona.jpg");
+  //monaImg = loadImage("mona.jpg");
+  //monaImg = loadImage("mona-col.png");
   //monaImg = loadImage("watch.jpg");
 //  monaImg = loadImage("comic.jpg");
-  //monaImg = loadImage("galaxysiiititle.jpg");
   //monaImg = loadImage("dp.jpg");
+  monaImg = loadImage("ego.jpg");
   
   monaImg.loadPixels();
   srcColor = monaImg.pixels;
@@ -77,7 +68,7 @@ void draw() {
     long time = (System.currentTimeMillis()-start)/1000;
     long last = (System.currentTimeMillis()-lastBest)/1000;
     String fitn = nf(bestFitness,0,2);
-    String s = "round: "+round+" :: best: "+fitn+" :: temp: "+int(temp)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago";
+    String s = "round: "+round+" :: best: "+fitn+" :: temp: "+nf(temp,0,2)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago";
     text(s, 4, monaImg.height+BORDER_SIZE/2); 
   }
 }
@@ -90,12 +81,11 @@ void saveImage() {
     output.close(); // Finishes the file
    
     saveFrame(ts+"-img-r"+round+"-v"+bestFitness+".jpg");
-    //best.img.save(ts+"-img-r"+round+"-v"+bestFitness+".jpg");  
 }
 
 void keyPressed() {
    if (key=='s') {
-      println("save");
+      //println("save");
       saveImage();
    } 
 }

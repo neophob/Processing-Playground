@@ -8,9 +8,7 @@ class Triangle {
   int r;
 
   public Triangle() {
-    r=int(random(21));
-    //r=4;
-    
+    r=int(random(20));
     randomize();
   }
 

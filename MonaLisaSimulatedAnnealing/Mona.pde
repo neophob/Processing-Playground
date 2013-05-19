@@ -1,4 +1,3 @@
-import java.util.*;
 
 class Mona {
   final int NR_OF_VECTORS = 768;
@@ -10,15 +9,12 @@ class Mona {
   int xofs;
 
   public Mona() {
-    println("Create Mona using "+NR_OF_VECTORS+" triangles");
     form = new Triangle[NR_OF_VECTORS];
     xofs=0;
 
     for (int i = 0; i < NR_OF_VECTORS; i++) {
       form[i] = new Triangle();
     }
-
-    println("create temp image, size: "+monaImg.width+" x "+monaImg.height);
   }
 
   //clone an instance
@@ -79,16 +75,6 @@ class Mona {
       ofs+=width-monaImg.width;
     }
     updatePixels();
-
-
-    // perfect image: fitness = 0
-    // worst case image: width*height*3 
-    // 300 - 0 / 300 = 1.0f ->
-    // 300 - 300 / 300 = 0.0f
-    //  fitness = 1f-((worstCaseImage-fitness) / worstCaseImage);
-
-    //  println(" - "+fitness+" "+worstCaseImage);
-    //    if (fitness > 1.0f || fitness<0f) println("OOPS, invalid fitness value "+fitness);
     return fitness;
   }
 
