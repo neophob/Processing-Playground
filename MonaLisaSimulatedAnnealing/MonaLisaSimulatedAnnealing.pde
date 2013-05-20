@@ -62,14 +62,14 @@ void draw() {
     resetSim();
   }
 
-  if (round%100==1) {
+  if (round%50==1) {
     fill(50);
     rect(0, monaImg.height, monaImg.width*3, BORDER_SIZE);
     fill(255);
     long time = (System.currentTimeMillis()-start)/1000;
     long last = (System.currentTimeMillis()-lastBest)/1000;
     String fitn = nf(bestFitness,0,2);
-    String s = "round: "+round+" :: best: "+fitn+" :: temp: "+nf(temp,0,2)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago";
+    String s = "round: "+round+" :: best: "+fitn+" :: temp: "+nf(temp,0,2)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago :: layer: "+m.currentLayer;
     text(s, 4, monaImg.height+BORDER_SIZE/2); 
   }
 }

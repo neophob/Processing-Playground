@@ -8,6 +8,7 @@ class Mona {
     64, 128, 512
   };  
 
+  int maxLayer;
   int currentLayer;
   Triangle[][] form;
 
@@ -22,6 +23,7 @@ class Mona {
     form = new Triangle[MAX_LAYERS][TrianglesPerLayer[2]];
     xofs=0;
     currentLayer=0;
+    maxLayer=0;
 
     for (int j = 0; j < MAX_LAYERS; j++) {
       for (int i = 0; i < TrianglesPerLayer[j]; i++) {
@@ -41,6 +43,8 @@ class Mona {
       }
     }
     currentLayer = m.currentLayer;
+    maxLayer=m.maxLayer;
+    
   }
 
 
@@ -57,8 +61,8 @@ class Mona {
     rect(xofs, 0, monaImg.width, monaImg.height);
 
     //draw
-    for (int j = 0; j < currentLayer+1; j++) {
-      println(round+" DRAW L"+j+" "+TrianglesPerLayer[j]);
+    for (int j = 0; j < maxLayer+1; j++) {
+      //println(round+" DRAW L"+j+" "+TrianglesPerLayer[j]);
       for (int i=0; i<TrianglesPerLayer[j]; i++) {        
         form[j][i].draw(xofs);
       }
@@ -113,9 +117,13 @@ class Mona {
 
 
   void triggerNextRound() {
-    currentLayer++;
+    currentLayer++;    
     if (currentLayer>2) {
       currentLayer=0;
+    }
+    
+    if (maxLayer<currentLayer) {
+      maxLayer = currentLayer;
     }
   }
 
