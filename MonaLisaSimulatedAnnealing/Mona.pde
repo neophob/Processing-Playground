@@ -21,8 +21,8 @@ class Mona {
   public Mona() {
     form = new Triangle[MAX_LAYERS][TrianglesPerLayer[2]];
     xofs=0;
-    currentLayer=1;
-    
+    currentLayer=0;
+
     for (int j = 0; j < MAX_LAYERS; j++) {
       for (int i = 0; i < TrianglesPerLayer[j]; i++) {
         form[j][i] = new Triangle(j);
@@ -43,6 +43,7 @@ class Mona {
     currentLayer = m.currentLayer;
   }
 
+
   float diffAbs(int v1, int v2) {
     float f = v1-v2;
     if (f<0) {
@@ -55,19 +56,14 @@ class Mona {
     fill(0);
     rect(xofs, 0, monaImg.width, monaImg.height);
 
-    //check
-    if (round==5000) currentLayer++;
-    if (round==10000) currentLayer++;
-    if (round==15000) currentLayer=0;
-
     //draw
-    for (int j = 0; j < currentLayer; j++) {
-      //println(round+" DRAW L"+j);
+    for (int j = 0; j < currentLayer+1; j++) {
+      println(round+" DRAW L"+j+" "+TrianglesPerLayer[j]);
       for (int i=0; i<TrianglesPerLayer[j]; i++) {        
         form[j][i].draw(xofs);
       }
     }
-    
+
     //calculate    
     loadPixels();
     fitness = 0f;
@@ -101,14 +97,28 @@ class Mona {
       ofs+=width-monaImg.width;
     }
     updatePixels();
-        
+
     return fitness;
   }
 
   void randomize() {
-    int pos = int(random(TrianglesPerLayer[currentLayer]));
-    form[currentLayer][pos].randomize();
+    int layerNr = int(random(currentLayer));
+    int pos = int(random(TrianglesPerLayer[layerNr]));
+    //    form[layerNr][pos].randomize();
+
+    int s=int(random(TrianglesPerLayer[currentLayer]));
+    //println(s+" "+currentLayer);
+    form[currentLayer][s].randomize();
   }
+
+
+  void triggerNextRound() {
+    currentLayer++;
+    if (currentLayer>2) {
+      currentLayer=0;
+    }
+  }
+
 
   final String DELIM = ";";
 

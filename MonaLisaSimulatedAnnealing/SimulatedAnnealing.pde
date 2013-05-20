@@ -61,6 +61,8 @@ boolean simulateAnnealing() {
   if (temp>1) {
     return false;
   }
+  
+  m.triggerNextRound();
   //finished
   return true;
 }
