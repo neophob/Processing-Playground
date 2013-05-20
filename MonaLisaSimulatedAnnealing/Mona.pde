@@ -27,7 +27,7 @@ class Mona {
 
     for (int j = 0; j < MAX_LAYERS; j++) {
       for (int i = 0; i < TrianglesPerLayer[j]; i++) {
-        form[j][i] = new Triangle(j);
+        form[j][i] = new Triangle();
       }
     }
   }
@@ -106,13 +106,13 @@ class Mona {
   }
 
   void randomize() {
-    int layerNr = int(random(currentLayer));
-    int pos = int(random(TrianglesPerLayer[layerNr]));
+    //int layerNr = int(random(currentLayer));
+    //int pos = int(random(TrianglesPerLayer[layerNr]));
     //    form[layerNr][pos].randomize();
 
     int s=int(random(TrianglesPerLayer[currentLayer]));
     //println(s+" "+currentLayer);
-    form[currentLayer][s].randomize();
+    form[currentLayer][s].randomize(currentLayer);
   }
 
 

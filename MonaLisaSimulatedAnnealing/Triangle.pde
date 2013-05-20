@@ -3,39 +3,35 @@ class Triangle {
   PVector p2;
   PVector p3;
   int col;
-  int layer;
 
   int vSelect;
   int r;
 
-  int w2 = monaImg.width/2;
-  int h2 = monaImg.height/2;
-  int w4 = monaImg.width/4;
-  int h4 = monaImg.height/4;
-
-  public Triangle(int layr) {
-    layer = layr;
+  public Triangle() {
     r=int(random(20));
-    randomize();
+    randomize(0);
   }
 
-  private Triangle(int foo, int bar) {
+  public Triangle(int a) {
   }
 
   int getRandomColor() {
     if (COLOR_MODE) {
+      if (random(50)<2) {
+        return color(0,0,0, random(192));
+      }
       //return color(int(random(255)), int(random(255)), int(random(255)), random(255));
       int c=srcColor[int(random(srcColor.length))];
       return color(red(c), green(c), blue(c), random(255));
     }
 
-    return color(int(random(255)), random(255));
+    return color(int(random(255)), random(224));
   }
 
-  void randomize() {
-    p1=getRandomVector();
-    p2=getRandomVector();
-    p3=getRandomVector();
+  void randomize(int layer) {
+    p1=getRandomVector(layer);
+    p2=getRandomVector(layer);
+    p3=getRandomVector(layer);
     col=getRandomColor();
   }
 
@@ -55,7 +51,13 @@ class Triangle {
     return t;
   }  
 
-  PVector getRandomVector() {
+  PVector getRandomVector(int layer) {
+    int w2 = monaImg.width/2;
+    int h2 = monaImg.height/2;
+    int w4 = monaImg.width/4;
+    int h4 = monaImg.height/4;
+
+
     int rw2 = int(random(w2));
     int rh2 = int(random(h2));
     int rw4 = int(random(w4));
@@ -68,8 +70,8 @@ class Triangle {
     }
     else
       vSelect++;
-    
-    
+
+
     switch (layer) {
     case 0:
       return new PVector(random(monaImg.width), random(monaImg.height));
@@ -89,14 +91,17 @@ class Triangle {
       default:    
         return new PVector( rw2+w2, rh2 +h2);
       }
-    
+
 
     case 2:
+      int ofs = r%15; //0..16
+      int tx=w4*(ofs%4);
+      int ty=h4*(ofs/4);
+      return new PVector( rw4+tx, rh4+ty);
+      
     default:
-      int ofs = r-5; //0..16
-      int xofs=w4*(ofs%4);
-      int yofs=h4*(ofs/4);
-      return new PVector( rw4+xofs, rh4+yofs);
+      println("ERROR!"+layer);
+      return null;      
     }
   }
 }

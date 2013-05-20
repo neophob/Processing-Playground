@@ -2,7 +2,7 @@
 float temp = 100000;
 
 // Cooling rate
-float coolingRate = 0.003;
+float coolingRate = 0.002;
 
 // Save best;
 Mona best = m;
@@ -25,8 +25,13 @@ static double acceptanceProbability(float engery, float newEngery, float tempera
 void resetSim() {
   //bestFitness = 9999999;
   //currentEngery = -1;
-  temp = 10000;
+  if (interation<3) {
+    temp = 10000;
+  } else {
+    temp = 3;
+  }
   coolingRate = 0.002;
+  //m = best;
 }
 
 boolean simulateAnnealing() {
@@ -34,7 +39,7 @@ boolean simulateAnnealing() {
 
   //modify
   newSolution.randomize();
-  
+
   // Get energy of solutions, the smaller the fitness the better!
   if (currentEngery==-1) {
     currentEngery = m.fitness();
@@ -53,7 +58,7 @@ boolean simulateAnnealing() {
     bestFitness = currentEngery;
     //println("new best: "+bestFitness);
     lastBest = System.currentTimeMillis();
-    copy(0, 0, monaImg.width,monaImg.height, monaImg.width, 0, monaImg.width,monaImg.height);
+    copy(0, 0, monaImg.width, monaImg.height, monaImg.width, 0, monaImg.width, monaImg.height);
   }
 
   // Cool system
@@ -61,7 +66,7 @@ boolean simulateAnnealing() {
   if (temp>1) {
     return false;
   }
-  
+
   m.triggerNextRound();
   //finished
   return true;
