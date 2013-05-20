@@ -8,6 +8,9 @@ class Mona {
 
   int xofs;
 
+  /**
+   * create new system
+   */
   public Mona() {
     form = new Triangle[NR_OF_VECTORS];
     xofs=0;
@@ -17,7 +20,9 @@ class Mona {
     }
   }
 
-  //clone an instance
+  /**
+   * clone a system
+   */
   public Mona(Mona m) {
     form = new Triangle[NR_OF_VECTORS];
     for (int i = 0; i < NR_OF_VECTORS; i++) {
@@ -63,14 +68,14 @@ class Mona {
           src = (srcColor[srcOfs]>>8)&255;
           dst = (pixels[ofs]>>8)&255;
           float diffB = diffAbs(src,dst);
-          pixelFitness = diffR*diffR + diffG*diffG + diffB*diffB;
+          
+          fitness += diffR*diffR + diffG*diffG + diffB*diffB;
         } else {
-          pixelFitness = diffR*diffR;
+          fitness += diffR*diffR;
         }
         
         ofs++;
         srcOfs++;
-        fitness += pixelFitness;
       }
       ofs+=width-monaImg.width;
     }

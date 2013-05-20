@@ -7,6 +7,12 @@ class Triangle {
   int vSelect;
   int r;
 
+  int w2 = monaImg.width/2;
+  int h2 = monaImg.height/2;
+  int w4 = monaImg.width/4;
+  int h4 = monaImg.height/4;
+
+
   public Triangle() {
     r=int(random(20));
     randomize();
@@ -49,12 +55,8 @@ class Triangle {
   }  
 
   PVector getRandomVector() {
-    int w2 = monaImg.width/2;
-    int h2 = monaImg.height/2;
     int rw2 = int(random(w2));
     int rh2 = int(random(h2));
-    int w4 = monaImg.width/4;
-    int h4 = monaImg.height/4;
     int rw4 = int(random(w4));
     int rh4 = int(random(h4));
 

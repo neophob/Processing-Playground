@@ -3,7 +3,8 @@ ideas:
   -split image up in multiple parts and verify which are the badest parts.
    update triangles there
   -compare current result with "Random Sampling" heuristic
-  
+  -start with a few rectangles - increase them over time. first draw large triangles, decrease them over time
+   multiple layers
 */
 PImage monaImg;
 
@@ -25,11 +26,11 @@ void setup() {
   }
   
   //monaImg = loadImage("mona.jpg");
-  //monaImg = loadImage("mona-col.png");
+  monaImg = loadImage("mona-col.jpg");
   //monaImg = loadImage("watch.jpg");
 //  monaImg = loadImage("comic.jpg");
   //monaImg = loadImage("dp.jpg");
-  monaImg = loadImage("ego.jpg");
+  //monaImg = loadImage("ego.jpg");
   
   monaImg.loadPixels();
   srcColor = monaImg.pixels;
