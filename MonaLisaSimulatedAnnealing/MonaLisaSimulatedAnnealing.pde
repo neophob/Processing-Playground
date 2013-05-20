@@ -28,11 +28,11 @@ void setup() {
   }
 
   //monaImg = loadImage("mona.jpg");
-  //monaImg = loadImage("mona-col.jpg");
+  monaImg = loadImage("mona-col.jpg");
   //monaImg = loadImage("watch.jpg");
   //  monaImg = loadImage("comic.jpg");
   //monaImg = loadImage("dp.jpg");
-  monaImg = loadImage("ego.jpg");
+  //monaImg = loadImage("ego.jpg");
 
   monaImg.loadPixels();
   srcColor = monaImg.pixels;

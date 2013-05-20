@@ -4,8 +4,9 @@ class Mona {
 
   final int MAX_LAYERS = 3;
 
+//64, 128, 512
   int[] TrianglesPerLayer = {
-    64, 128, 512
+    128, 256, 384
   };  
 
   int maxLayer;

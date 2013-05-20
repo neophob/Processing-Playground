@@ -1,8 +1,11 @@
+final float INITIAL_HEAT = 100000;
+final float COOLING_RATE = 0.001;
+
 // Set initial temp
-float temp = 100000;
+float temp = INITIAL_HEAT;
 
 // Cooling rate
-float coolingRate = 0.002;
+float coolingRate = COOLING_RATE;
 
 // Save best;
 Mona best = m;
@@ -26,11 +29,11 @@ void resetSim() {
   //bestFitness = 9999999;
   //currentEngery = -1;
   if (interation<3) {
-    temp = 10000;
+    temp = INITIAL_HEAT;
   } else {
-    temp = 3;
+//    temp = 8;
   }
-  coolingRate = 0.002;
+  coolingRate = COOLING_RATE;
   //m = best;
 }
 
