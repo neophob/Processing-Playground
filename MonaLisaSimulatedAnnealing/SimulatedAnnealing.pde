@@ -33,9 +33,8 @@ boolean simulateAnnealing() {
   Mona newSolution = new Mona(m);
 
   //modify
-  int pos = int(random(m.NR_OF_VECTORS));
-  newSolution.form[pos].randomize();
-
+  newSolution.randomize();
+  
   // Get energy of solutions, the smaller the fitness the better!
   if (currentEngery==-1) {
     currentEngery = m.fitness();

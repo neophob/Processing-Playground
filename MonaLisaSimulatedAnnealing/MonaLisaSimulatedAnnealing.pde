@@ -26,11 +26,11 @@ void setup() {
   }
   
   //monaImg = loadImage("mona.jpg");
-  monaImg = loadImage("mona-col.jpg");
+  //monaImg = loadImage("mona-col.jpg");
   //monaImg = loadImage("watch.jpg");
 //  monaImg = loadImage("comic.jpg");
   //monaImg = loadImage("dp.jpg");
-  //monaImg = loadImage("ego.jpg");
+  monaImg = loadImage("ego.jpg");
   
   monaImg.loadPixels();
   srcColor = monaImg.pixels;
@@ -62,7 +62,7 @@ void draw() {
     resetSim();
   }
 
-  if (round++%100==1) {
+  if (round%100==1) {
     fill(50);
     rect(0, monaImg.height, monaImg.width*3, BORDER_SIZE);
     fill(255);

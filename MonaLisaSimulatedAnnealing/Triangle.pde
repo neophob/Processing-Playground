@@ -3,6 +3,7 @@ class Triangle {
   PVector p2;
   PVector p3;
   int col;
+  int layer;
 
   int vSelect;
   int r;
@@ -12,13 +13,13 @@ class Triangle {
   int w4 = monaImg.width/4;
   int h4 = monaImg.height/4;
 
-
-  public Triangle() {
+  public Triangle(int layr) {
+    layer = layr;
     r=int(random(20));
     randomize();
   }
 
-  private Triangle(int foo) {
+  private Triangle(int foo, int bar) {
   }
 
   int getRandomColor() {
@@ -67,24 +68,30 @@ class Triangle {
     }
     else
       vSelect++;
-
-    switch (r) {
+    
+    
+    switch (layer) {
     case 0:
-      return new PVector( rw2, rh2 );
-
-    case 1:
-      return new PVector( rw2+w2, rh2 );
-
-    case 2:
-      return new PVector( rw2, rh2+h2 );
-
-    case 3:
-      return new PVector( rw2+w2, rh2 +h2);
-
-    case 4:
       return new PVector(random(monaImg.width), random(monaImg.height));
 
-      //5..21
+    case 1:
+      switch (r%4) {
+      case 0:
+        return new PVector( rw2, rh2 );
+
+      case 1:
+        return new PVector( rw2+w2, rh2 );
+
+      case 2:
+        return new PVector( rw2, rh2+h2 );
+
+      case 3:  
+      default:    
+        return new PVector( rw2+w2, rh2 +h2);
+      }
+    
+
+    case 2:
     default:
       int ofs = r-5; //0..16
       int xofs=w4*(ofs%4);

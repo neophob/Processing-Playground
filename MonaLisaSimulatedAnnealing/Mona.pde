@@ -1,8 +1,15 @@
 
 class Mona {
-  final int NR_OF_VECTORS = 768;
+  final int ROUNDS_PER_LAYER = 10000;
 
-  Triangle[] form;
+  final int MAX_LAYERS = 3;
+
+  int[] TrianglesPerLayer = {
+    64, 128, 512
+  };  
+
+  int currentLayer;
+  Triangle[][] form;
 
   float fitness;
 
@@ -12,11 +19,14 @@ class Mona {
    * create new system
    */
   public Mona() {
-    form = new Triangle[NR_OF_VECTORS];
+    form = new Triangle[MAX_LAYERS][TrianglesPerLayer[2]];
     xofs=0;
-
-    for (int i = 0; i < NR_OF_VECTORS; i++) {
-      form[i] = new Triangle();
+    currentLayer=1;
+    
+    for (int j = 0; j < MAX_LAYERS; j++) {
+      for (int i = 0; i < TrianglesPerLayer[j]; i++) {
+        form[j][i] = new Triangle(j);
+      }
     }
   }
 
@@ -24,10 +34,13 @@ class Mona {
    * clone a system
    */
   public Mona(Mona m) {
-    form = new Triangle[NR_OF_VECTORS];
-    for (int i = 0; i < NR_OF_VECTORS; i++) {
-      form[i] = m.form[i].clone();
+    form = new Triangle[MAX_LAYERS][TrianglesPerLayer[2]];
+    for (int j = 0; j < MAX_LAYERS; j++) {
+      for (int i = 0; i < TrianglesPerLayer[j]; i++) {
+        form[j][i] = m.form[j][i].clone();
+      }
     }
+    currentLayer = m.currentLayer;
   }
 
   float diffAbs(int v1, int v2) {
@@ -37,16 +50,24 @@ class Mona {
     }
     return f/255f;
   }
-  
+
   float fitness() {
     fill(0);
     rect(xofs, 0, monaImg.width, monaImg.height);
 
-    //draw
-    for (int i=0; i<NR_OF_VECTORS; i++) {
-      form[i].draw(xofs);
-    }
+    //check
+    if (round==5000) currentLayer++;
+    if (round==10000) currentLayer++;
+    if (round==15000) currentLayer=0;
 
+    //draw
+    for (int j = 0; j < currentLayer; j++) {
+      //println(round+" DRAW L"+j);
+      for (int i=0; i<TrianglesPerLayer[j]; i++) {        
+        form[j][i].draw(xofs);
+      }
+    }
+    
     //calculate    
     loadPixels();
     fitness = 0f;
@@ -57,40 +78,47 @@ class Mona {
         //color src = monaImg.get(x, y);
         int src = srcColor[srcOfs]&255;
         int dst = pixels[ofs]&255;
-        float diffR = diffAbs(src,dst);
-        
+        float diffR = diffAbs(src, dst);
+
         float pixelFitness;
         if (COLOR_MODE) {
           src = (srcColor[srcOfs]>>16)&255;
           dst = (pixels[ofs]>>16)&255;
-          float diffG = diffAbs(src,dst);
-          
+          float diffG = diffAbs(src, dst);
+
           src = (srcColor[srcOfs]>>8)&255;
           dst = (pixels[ofs]>>8)&255;
-          float diffB = diffAbs(src,dst);
-          
+          float diffB = diffAbs(src, dst);
+
           fitness += diffR*diffR + diffG*diffG + diffB*diffB;
         } else {
           fitness += diffR*diffR;
         }
-        
+
         ofs++;
         srcOfs++;
       }
       ofs+=width-monaImg.width;
     }
     updatePixels();
+        
     return fitness;
+  }
+
+  void randomize() {
+    int pos = int(random(TrianglesPerLayer[currentLayer]));
+    form[currentLayer][pos].randomize();
   }
 
   final String DELIM = ";";
 
   void serialize(PrintWriter output) {
-
-    for (int i = 0; i < NR_OF_VECTORS; i++) {
-      Triangle t=form[i];
-      int c = t.col&255;
-      output.println(t.p1.x+DELIM+t.p1.y+DELIM+t.p2.x+DELIM+t.p2.y+DELIM+t.p3.x+DELIM+t.p3.y+DELIM+c);
+    for (int j = 0; j < MAX_LAYERS; j++) {
+      for (int i = 0; i < TrianglesPerLayer[j]; i++) {
+        Triangle t=form[j][i];
+        int c = t.col&255;
+        output.println(t.p1.x+DELIM+t.p1.y+DELIM+t.p2.x+DELIM+t.p2.y+DELIM+t.p3.x+DELIM+t.p3.y+DELIM+c);
+      }
     }
   }
 }
