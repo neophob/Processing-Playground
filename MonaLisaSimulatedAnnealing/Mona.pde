@@ -5,7 +5,8 @@ class Mona {
 //128, 256, 384
   int[] TrianglesPerLayer = {
 //    256, 512, 512
-128, 256, 384
+//128, 256, 384
+32, 128, 512
   };  
 
   int maxLayer;
@@ -67,6 +68,10 @@ class Mona {
         form[j][i].draw(xofs);
       }
     }
+/*      for (int i=0; i<TrianglesPerLayer[currentLayer]; i++) {        
+        form[currentLayer][i].draw(xofs);
+      }
+  */  
 
     //calculate    
     loadPixels();

@@ -6,9 +6,9 @@ ideas:
   -> after 10'000 iterations
 
           | Heuristic Method
-Iteration | Random | SA, 100000, 0.003 | SA, 80000, 0.005 |
-----------+--------+-------------------+------------------+
-10000     | 14750  | 17309             | 14022            |
+Iteration | Random | SA, 100000, 0.003 | SA, 80000, 0.005 | fixed drawing / 0.005->0.003
+----------+--------+-------------------+------------------+--------------
+10000     | 14750  | 17309             | 14022            |  13686 / 15758 (14400)
 20000     | 10681  | 10900             | 10194            |
 30000     | 9207   | 9273              | 8289             | 
 
@@ -25,6 +25,9 @@ int interation=0;
 
 Mona m;
 long start=System.currentTimeMillis();
+boolean finished=false;
+boolean savedImage=false;
+int round;
 
 void setup() {
   //max framerate
@@ -50,12 +53,9 @@ void setup() {
   image(monaImg, monaImg.width*2, 0);
 
   m = new Mona();
-  noStroke();
+  noStroke();  
 }
 
-boolean finished=false;
-boolean savedImage=false;
-int round;
 
 void draw() {
   round++;

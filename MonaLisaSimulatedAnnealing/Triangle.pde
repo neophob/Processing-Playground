@@ -17,24 +17,25 @@ class Triangle {
   public Triangle(String a) {
   }
 
-  int getRandomColor() {
+  //rndomize color
+  void randomizeColor() {
     if (COLOR_MODE) {
       if (random(50)<2) {
-        return color(0,0,0, random(192));
+        col=color(0,0,0, random(192));
+        return;
       }
       //return color(int(random(255)), int(random(255)), int(random(255)), random(255));
       int c=srcColor[int(random(srcColor.length))];
-      return color(red(c), green(c), blue(c), random(255));
+      col=color(red(c), green(c), blue(c), random(255));
+      return;
     }
 
-    return color(int(random(255)), random(224));
+    col=color(int(random(255)), random(224));
   }
 
   void randomize() {
-    p1=getRandomVector();
-    p2=getRandomVector();
-    p3=getRandomVector();
-    col=getRandomColor();
+    randomizeVectors();
+    randomizeColor();
   }
 
   void draw(int xofs) {
@@ -54,57 +55,63 @@ class Triangle {
     return t;
   }  
 
-  PVector getRandomVector() {
+  void randomizeVectors() {
     int w2 = monaImg.width/2;
     int h2 = monaImg.height/2;
     int w4 = monaImg.width/4;
     int h4 = monaImg.height/4;
 
 
-    int rw2 = int(random(w2));
-    int rh2 = int(random(h2));
-    int rw4 = int(random(w4));
-    int rh4 = int(random(h4));
-
-    if (vSelect>5) {
-      vSelect=0;
-      r++;
-      if (r>20) r=0;
-    }
-    else
-      vSelect++;
-
-
+    r++;
+    
     switch (layer) {
     case 0:
-      return new PVector(random(monaImg.width), random(monaImg.height));
+      p1 = new PVector(random(monaImg.width), random(monaImg.height));
+      p2 = new PVector(random(monaImg.width), random(monaImg.height));
+      p3 = new PVector(random(monaImg.width), random(monaImg.height));
+      return; 
 
     case 1:
       switch (r%4) {
       case 0:
-        return new PVector( rw2, rh2 );
-
+        p1 = new PVector( int(random(w2)), int(random(h2)) );
+        p2 = new PVector( int(random(w2)), int(random(h2)) );
+        p3 = new PVector( int(random(w2)), int(random(h2)) );
+        return;
+        
       case 1:
-        return new PVector( rw2+w2, rh2 );
-
+        p1 = new PVector( int(random(w2))+w2, int(random(h2)) );
+        p2 = new PVector( int(random(w2))+w2, int(random(h2)) );
+        p3 = new PVector( int(random(w2))+w2, int(random(h2)) );
+        return;
+        
       case 2:
-        return new PVector( rw2, rh2+h2 );
+        p1 = new PVector( int(random(w2)), int(random(h2))+h2 );
+        p2 = new PVector( int(random(w2)), int(random(h2))+h2 );
+        p3 = new PVector( int(random(w2)), int(random(h2))+h2 );
+        return;
 
       case 3:  
       default:    
-        return new PVector( rw2+w2, rh2 +h2);
+        p1 = new PVector( int(random(w2))+w2, int(random(h2))+h2);
+        p2 = new PVector( int(random(w2))+w2, int(random(h2))+h2);
+        p3 = new PVector( int(random(w2))+w2, int(random(h2))+h2);
+        return;
       }
 
 
     case 2:
-      int ofs = r%15; //0..16
+      int ofs = r%16; //0..16
       int tx=w4*(ofs%4);
       int ty=h4*(ofs/4);
-      return new PVector( rw4+tx, rh4+ty);
+      p1 = new PVector(  int(random(w4))+tx,  int(random(h4))+ty);
+      p2 = new PVector(  int(random(w4))+tx,  int(random(h4))+ty);
+      p3 = new PVector(  int(random(w4))+tx,  int(random(h4))+ty);
+      return;
       
     default:
       println("ERROR!"+layer);
-      return null;      
+      return;      
     }
   }
 }
