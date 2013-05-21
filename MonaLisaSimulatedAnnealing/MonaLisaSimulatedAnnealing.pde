@@ -12,6 +12,11 @@ Iteration | Random | SA, 100000, 0.003 | SA, 80000, 0.005 | fixed drawing / div3
 20000     | 10681  | 10900             | 10194            |  7936
 30000     | 9207   | 9273              | 8289             | 
 
+24000   1600   215s
+-> div 8 to div 12
+-> 384 to 512 triangles
+
+
  */
 PImage monaImg;
 
@@ -38,11 +43,11 @@ void setup() {
   }
 
   //monaImg = loadImage("mona.jpg");
-  //monaImg = loadImage("mona-col.jpg");
+  monaImg = loadImage("mona-col.jpg");
   //monaImg = loadImage("watch.jpg");
   //  monaImg = loadImage("comic.jpg");
   //monaImg = loadImage("dp.jpg");
-  monaImg = loadImage("ego.jpg");
+  //monaImg = loadImage("ego.jpg");
 
   monaImg.loadPixels();
   srcColor = monaImg.pixels;
@@ -52,7 +57,7 @@ void setup() {
   background(0);  
   image(monaImg, monaImg.width*2, 0);
 
-  m = new Mona();
+  m = new Mona(monaImg.width, monaImg.height);
   noStroke();  
 }
 

@@ -1,5 +1,4 @@
 final int NR_OF_TRIANGLES = 384;
-
 class Mona {
   Triangle[] form;
 
@@ -8,10 +7,12 @@ class Mona {
   /**
    * create new system
    */
-  public Mona() {
-    form = new Triangle[NR_OF_TRIANGLES];
+  public Mona(int imagexSize, int imageYsize) {
+    int nrOfTriangles = NR_OF_TRIANGLES;
+    println("using "+nrOfTriangles+" triangles");
+    form = new Triangle[nrOfTriangles];
 
-    for (int j = 0; j < NR_OF_TRIANGLES; j++) {
+    for (int j = 0; j < form.length; j++) {
         form[j] = new Triangle();
     }
   }
@@ -20,8 +21,8 @@ class Mona {
    * clone a system
    */
   public Mona(Mona m) {
-    form = new Triangle[NR_OF_TRIANGLES];
-    for (int j = 0; j < NR_OF_TRIANGLES; j++) {
+    form = new Triangle[m.form.length];
+    for (int j = 0; j < form.length; j++) {
         form[j] = m.form[j].clone();
     }
   }
@@ -40,7 +41,7 @@ class Mona {
     rect(0, 0, monaImg.width, monaImg.height);
 
     //draw
-    for (int j = 0; j < NR_OF_TRIANGLES; j++) {
+    for (int j = 0; j < form.length; j++) {
         form[j].draw();
     }
 
@@ -82,7 +83,7 @@ class Mona {
   }
 
   void randomize() {
-    form[int(random(NR_OF_TRIANGLES))].randomize();
+    form[int(random(form.length))].randomize();
   }
 
 

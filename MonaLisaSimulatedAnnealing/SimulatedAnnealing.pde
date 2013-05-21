@@ -1,5 +1,5 @@
-final float INITIAL_HEAT = 80000;
-final float COOLING_RATE = 0.003;
+final float INITIAL_HEAT = 150000;
+final float COOLING_RATE = 0.0005;
 
 // Set initial temp
 float temp = INITIAL_HEAT;
@@ -26,9 +26,7 @@ static double acceptanceProbability(float engery, float newEngery, float tempera
 
 //gets called for the detail step
 void resetSim() {
-  if (interation<3) {
-    temp = INITIAL_HEAT;
-  } else {
+  if (interation<1) {
 //    temp = 8;
   }
   coolingRate = COOLING_RATE;

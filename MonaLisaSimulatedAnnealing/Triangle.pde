@@ -50,8 +50,8 @@ class Triangle {
 
   void randomizeVectors() {
     float angle = random(360);
-    float l1 = random(monaImg.width/4);
-    float l2 = random(monaImg.height/4);
+    float l1 = random(monaImg.width/8);
+    float l2 = random(monaImg.height/8);
     
     float x = random(monaImg.width);
     float y = random(monaImg.height);
