@@ -45,12 +45,12 @@ boolean simulateAnnealing() {
   if (currentEngery==-1) {
     currentEngery = m.fitness();
   }
-  float neighbourEngery = newSolution.fitness();
+  float newSolutionEngery = newSolution.fitness();
 
   // Decide if we should accept the neighbour - in the beginning results are much more experimental
-  if (acceptanceProbability(currentEngery, neighbourEngery, temp) > Math.random()) {
+  if (acceptanceProbability(currentEngery, newSolutionEngery, temp) > Math.random()) {
     m = newSolution;
-    currentEngery = neighbourEngery;
+    currentEngery = newSolutionEngery;
   }
 
   // Keep track of the best solution found

@@ -93,7 +93,7 @@ class Mona {
   void serialize(PrintWriter output) {
     for (int j = 0; j < form.length; j++) {      
       Triangle t=form[j];
-      output.println(t.x1+DELIM+t.y1+DELIM+ t.x2+DELIM+t.y2+DELIM+ t.x3+DELIM+t.y3+DELIM+t.col&0xffffffff);
+      output.println(t.x1+DELIM+t.y1+DELIM+ t.x2+DELIM+t.y2+DELIM+ t.x3+DELIM+t.y3+DELIM+(t.col&0xffffffff));
     }
   }
 }
