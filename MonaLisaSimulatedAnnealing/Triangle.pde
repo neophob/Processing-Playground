@@ -13,10 +13,6 @@ class Triangle {
   //rndomize color
   void randomizeColor() {
     if (COLOR_MODE) {
-      if (random(50)<2) {
-        col=color(0, 0, 0, random(192));
-        return;
-      }
       //return color(int(random(255)), int(random(255)), int(random(255)), random(255));
       int c=srcColor[int(random(srcColor.length))];
       col=color(red(c), green(c), blue(c), random(255));

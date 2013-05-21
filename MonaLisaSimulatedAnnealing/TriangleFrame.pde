@@ -1,4 +1,5 @@
-final int NR_OF_TRIANGLES = 384;
+//final int NR_OF_TRIANGLES = 384;
+final int NR_OF_TRIANGLES = 512;
 
 class TriangleFrame {
   Triangle[] form;
