@@ -4,15 +4,17 @@ class Triangle {
   PVector p3;
   int col;
 
+  int layer;
   int vSelect;
   int r;
 
-  public Triangle() {
+  public Triangle(int layr) {
     r=int(random(20));
-    randomize(0);
+    layer=layr;
+    randomize();
   }
 
-  public Triangle(int a) {
+  public Triangle(String a) {
   }
 
   int getRandomColor() {
@@ -28,10 +30,10 @@ class Triangle {
     return color(int(random(255)), random(224));
   }
 
-  void randomize(int layer) {
-    p1=getRandomVector(layer);
-    p2=getRandomVector(layer);
-    p3=getRandomVector(layer);
+  void randomize() {
+    p1=getRandomVector();
+    p2=getRandomVector();
+    p3=getRandomVector();
     col=getRandomColor();
   }
 
@@ -41,17 +43,18 @@ class Triangle {
   }
 
   Triangle clone() {
-    Triangle t = new Triangle(0);
+    Triangle t = new Triangle("");
     t.p1=p1;
     t.p2=p2;
     t.p3=p3;
     t.col=col;
     t.vSelect=vSelect;
     t.r=r;
+    t.layer=layer;
     return t;
   }  
 
-  PVector getRandomVector(int layer) {
+  PVector getRandomVector() {
     int w2 = monaImg.width/2;
     int h2 = monaImg.height/2;
     int w4 = monaImg.width/4;

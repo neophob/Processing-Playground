@@ -1,12 +1,11 @@
 
 class Mona {
-  final int ROUNDS_PER_LAYER = 10000;
-
   final int MAX_LAYERS = 3;
 
-//64, 128, 512
+//128, 256, 384
   int[] TrianglesPerLayer = {
-    128, 256, 384
+//    256, 512, 512
+128, 256, 384
   };  
 
   int maxLayer;
@@ -28,7 +27,7 @@ class Mona {
 
     for (int j = 0; j < MAX_LAYERS; j++) {
       for (int i = 0; i < TrianglesPerLayer[j]; i++) {
-        form[j][i] = new Triangle();
+        form[j][i] = new Triangle(j);
       }
     }
   }
@@ -113,7 +112,7 @@ class Mona {
 
     int s=int(random(TrianglesPerLayer[currentLayer]));
     //println(s+" "+currentLayer);
-    form[currentLayer][s].randomize(currentLayer);
+    form[currentLayer][s].randomize();
   }
 
 

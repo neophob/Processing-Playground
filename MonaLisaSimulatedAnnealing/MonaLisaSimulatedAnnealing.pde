@@ -3,8 +3,15 @@ ideas:
  -split image up in multiple parts and verify which are the badest parts.
  update triangles there
  -compare current result with "Random Sampling" heuristic
- -start with a few rectangles - increase them over time. first draw large triangles, decrease them over time
- multiple layers
+  -> after 10'000 iterations
+
+          | Heuristic Method
+Iteration | Random | SA, 100000, 0.003 | SA, 80000, 0.005 |
+----------+--------+-------------------+------------------+
+10000     | 14750  | 17309             | 14022            |
+20000     | 10681  | 10900             | 10194            |
+30000     | 9207   | 9273              | 8289             | 
+
  */
 PImage monaImg;
 
@@ -28,11 +35,11 @@ void setup() {
   }
 
   //monaImg = loadImage("mona.jpg");
-  monaImg = loadImage("mona-col.jpg");
+  //monaImg = loadImage("mona-col.jpg");
   //monaImg = loadImage("watch.jpg");
   //  monaImg = loadImage("comic.jpg");
   //monaImg = loadImage("dp.jpg");
-  //monaImg = loadImage("ego.jpg");
+  monaImg = loadImage("ego.jpg");
 
   monaImg.loadPixels();
   srcColor = monaImg.pixels;
@@ -59,7 +66,7 @@ void draw() {
     resetSim();
   }
 
-  if (round%50==1) {
+  if (round%50==1) { 
     fill(50);
     rect(0, monaImg.height, monaImg.width*3, BORDER_SIZE);
     fill(255);
@@ -68,6 +75,7 @@ void draw() {
     String fitn = nf(bestFitness, 0, 2);
     String s = "round: "+round+" :: best: "+fitn+" :: temp: "+nf(temp, 0, 2)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago :: layer: "+m.currentLayer;
     text(s, 4, monaImg.height+BORDER_SIZE/2);
+    //println(s);
   }
 }
 
