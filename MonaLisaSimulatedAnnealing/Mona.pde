@@ -13,7 +13,7 @@ class Mona {
     form = new Triangle[nrOfTriangles];
 
     for (int j = 0; j < form.length; j++) {
-        form[j] = new Triangle();
+      form[j] = new Triangle();
     }
   }
 
@@ -23,7 +23,7 @@ class Mona {
   public Mona(Mona m) {
     form = new Triangle[m.form.length];
     for (int j = 0; j < form.length; j++) {
-        form[j] = m.form[j].clone();
+      form[j] = m.form[j].clone();
     }
   }
 
@@ -42,7 +42,7 @@ class Mona {
 
     //draw
     for (int j = 0; j < form.length; j++) {
-        form[j].draw();
+      form[j].draw();
     }
 
     //calculate    
@@ -83,20 +83,17 @@ class Mona {
   }
 
   void randomize() {    
-    form[int(random(form.length))].randomize();    
+    form[int(random(form.length))].randomize();
   }
 
 
   final String DELIM = ";";
 
   void serialize(PrintWriter output) {
-/*    for (int j = 0; j < MAX_LAYERS; j++) {
-      for (int i = 0; i < TrianglesPerLayer[j]; i++) {
-        Triangle t=form[j][i];
-        int c = t.col&255;
-//        output.println(t.p1.x+DELIM+t.p1.y+DELIM+t.p2.x+DELIM+t.p2.y+DELIM+t.p3.x+DELIM+t.p3.y+DELIM+c);
-      }
-    }*/
+    for (int j = 0; j < form.length; j++) {      
+      Triangle t=form[j];
+      output.println(t.x1+DELIM+t.y1+DELIM+ t.x2+DELIM+t.y2+DELIM+ t.x3+DELIM+t.y3+DELIM+t.col);
+    }
   }
 }
 

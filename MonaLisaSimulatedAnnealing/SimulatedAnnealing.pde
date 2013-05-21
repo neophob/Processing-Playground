@@ -1,6 +1,6 @@
 final float INITIAL_HEAT = 150000;
 //final float COOLING_RATE = 0.0008;
-final float COOLING_RATE = 0.003;
+final float COOLING_RATE = 0.004;
 
 // Set initial temp
 float temp = INITIAL_HEAT;

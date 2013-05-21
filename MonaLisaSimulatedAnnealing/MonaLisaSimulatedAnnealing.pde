@@ -14,8 +14,8 @@ Iteration | Random | SA, 100000, 0.003 | SA, 80000, 0.005 | fixed drawing / div3
 
 24000   1600   215s
 
-26600 1057      -> 940
-72340  702      -> 647
+26600 1057      -> 940    -> 878
+72340  702      -> 647    -> 668
  */
 PImage monaImg;
 
@@ -66,7 +66,7 @@ void draw() {
   
   if (simulateAnnealing()) {
     iteration++; 
-    println("iteration: "+iteration);
+    //println("iteration: "+iteration);
     resetSim();
   }
 
