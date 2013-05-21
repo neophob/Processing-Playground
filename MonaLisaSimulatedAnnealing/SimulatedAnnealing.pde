@@ -1,8 +1,8 @@
-//final float INITIAL_HEAT = 150000;
-final float INITIAL_HEAT = 00000;
+final float INITIAL_HEAT = 1000000;
+//final float INITIAL_HEAT = 00000;
 
 //final float COOLING_RATE = 0.0008;
-final float COOLING_RATE = 0.001;
+final float COOLING_RATE = 0.99;
 
 // Set initial temp
 float temp = INITIAL_HEAT;
@@ -11,59 +11,70 @@ float temp = INITIAL_HEAT;
 float coolingRate = COOLING_RATE;
 
 // Save best;
-Mona best = m;
-float bestFitness = 9999999;
+TriangleFrame currentSolution;
+TriangleFrame workingSolution;
+TriangleFrame bestSolution;
 
-float currentEngery = -1;
 
 long lastBest = 0;
 
-static double acceptanceProbability(float engery, float newEngery, float temperature) {
-  // If the new solution is better, accept it
-  if (newEngery < engery) {
-    return 1.0;
-  }
-  // If the new solution is worse, calculate an acceptance probability
-  return Math.exp((engery - newEngery) / temperature);
+void initSimulatedAnnealing() {
+  workingSolution = new TriangleFrame(monaImg.width, monaImg.height);
+  currentSolution = new TriangleFrame(workingSolution);
+  bestSolution    = new TriangleFrame(workingSolution);
 }
+
+
 
 //gets called for the detail step
 void resetSim() {
-  if (iteration<1) {
-//    temp = 8;
-  }
-  coolingRate = COOLING_RATE;
+/*  if (iteration<3) {
+    //    temp = 8;
+    temp=INITIAL_HEAT;
+    currentSolution = new TriangleFrame(bestSolution);
+    workingSolution = new TriangleFrame(bestSolution);
+  }*/
 }
 
+
+//
+// Main lop
+//
 boolean simulateAnnealing() {
-  Mona newSolution = new Mona(m);
+  //newSolution = new TriangleFrame(workingSolution);
+  workingSolution.randomize();
 
-  //modify
-  newSolution.randomize();
-
-  // Get energy of solutions, the smaller the fitness the better!
-  if (currentEngery==-1) {
-    currentEngery = m.fitness();
-  }
-  float newSolutionEngery = newSolution.fitness();
-
-  // Decide if we should accept the neighbour - in the beginning results are much more experimental
-  if (acceptanceProbability(currentEngery, newSolutionEngery, temp) > Math.random()) {
-    m = newSolution;
-    currentEngery = newSolutionEngery;
-  }
+  boolean useNewSolution = false;
 
   // Keep track of the best solution found
-  if (currentEngery < bestFitness) {
-    best = m;
-    bestFitness = currentEngery;
-    //println("new best: "+bestFitness);
-    lastBest = System.currentTimeMillis();
-    copy(0, 0, monaImg.width, monaImg.height, monaImg.width, 0, monaImg.width, monaImg.height);
+  if (workingSolution.getFitness() <= currentSolution.getFitness()) {
+    useNewSolution = true;
+  } else {
+    //new solution wasnt better, but maybe use it anyway
+    float test = random(1);
+    float delta = workingSolution.getFitness() - currentSolution.getFitness();
+    float calc = (float)Math.exp(-delta / temp);
+    //jump out of any local optimums it finds itself in early on in execution
+    if (calc > test) {
+      useNewSolution = true;
+    }
+  }
+
+  if (useNewSolution) {
+    currentSolution = new TriangleFrame(workingSolution);
+
+    if (currentSolution.getFitness() <= bestSolution.getFitness()) {
+      bestSolution = new TriangleFrame(currentSolution);
+      println("new best: "+bestSolution.getFitness());
+      lastBest = System.currentTimeMillis();      
+      copy(0, 0, monaImg.width, monaImg.height, monaImg.width, 0, monaImg.width, monaImg.height);
+    }
+  } else {
+    workingSolution = new TriangleFrame(currentSolution);
   }
 
   // Cool system
-  temp *= 1-coolingRate;
+  temp *= coolingRate;
   if (temp>1) {
     return false;
   }

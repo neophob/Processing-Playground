@@ -1,13 +1,14 @@
 final int NR_OF_TRIANGLES = 384;
-class Mona {
+
+class TriangleFrame {
   Triangle[] form;
 
-  float fitness;
+  private float fitness;
 
   /**
    * create new system
    */
-  public Mona(int imagexSize, int imageYsize) {
+  public TriangleFrame(int imagexSize, int imageYsize) {
     int nrOfTriangles = NR_OF_TRIANGLES;
     println("using "+nrOfTriangles+" triangles");
     form = new Triangle[nrOfTriangles];
@@ -15,16 +16,20 @@ class Mona {
     for (int j = 0; j < form.length; j++) {
       form[j] = new Triangle();
     }
+
+    fitness = 0;
   }
 
   /**
    * clone a system
    */
-  public Mona(Mona m) {
+  public TriangleFrame(TriangleFrame m) {
     form = new Triangle[m.form.length];
     for (int j = 0; j < form.length; j++) {
       form[j] = m.form[j].clone();
     }
+
+    fitness = m.fitness;
   }
 
 
@@ -36,7 +41,15 @@ class Mona {
     return f/255f;
   }
 
-  float fitness() {
+  float getFitness() {
+    if (fitness==0) {
+      calcFitness();
+    }
+
+    return fitness;
+  }
+
+  void calcFitness() {
     fill(0);
     rect(0, 0, monaImg.width, monaImg.height);
 
@@ -78,13 +91,12 @@ class Mona {
       ofs+=width-monaImg.width;
     }
     updatePixels();
-
-    return fitness;
   }
 
   //
   void randomize() {    
     form[int(random(form.length))].randomize();
+    fitness = 0;
   }
 
 

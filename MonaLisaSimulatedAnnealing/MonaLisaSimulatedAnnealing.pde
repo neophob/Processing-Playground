@@ -14,10 +14,12 @@ Iteration | Random | SA, 100000, 0.003 | SA, 80000, 0.005 | fixed drawing / div3
 
 24000   1600   215s
 
-26600 1057      -> 940    -> 878 -> 
+26600 1057      -> 940    -> 878 ->  947
 72340  702      -> 647    -> 668 -> 
 
-13000 2300
+10000 1340
+10000 1627 (restart heatsearch)
+
  */
 PImage monaImg;
 
@@ -29,7 +31,6 @@ int[] srcColor;
 
 int iteration=0;
 
-Mona m;
 long start=System.currentTimeMillis();
 boolean finished=false;
 boolean savedImage=false;
@@ -57,9 +58,10 @@ void setup() {
   size(monaImg.width*3, monaImg.height+BORDER_SIZE, P3D);
   background(0);  
   image(monaImg, monaImg.width*2, 0);
-
-  m = new Mona(monaImg.width, monaImg.height);
+  
   noStroke();  
+  
+  initSimulatedAnnealing();
 }
 
 
@@ -78,7 +80,7 @@ void draw() {
     fill(255);
     long time = (System.currentTimeMillis()-start)/1000;
     long last = (System.currentTimeMillis()-lastBest)/1000;
-    String fitn = nf(bestFitness, 0, 2);
+    String fitn = nf(bestSolution.fitness, 0, 2);
     String s = "round: "+round+" :: best: "+fitn+" :: temp: "+nf(temp, 0, 2)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago";
     text(s, 4, monaImg.height+BORDER_SIZE/2);
     //println(s);
@@ -87,11 +89,11 @@ void draw() {
 
 void saveImage() {
   String ts = year() + nf(month(), 2) + nf(day(), 2) + "-"  + nf(hour(), 2) + nf(minute(), 2) + nf(second(), 2);
-  PrintWriter output = createWriter(ts+"-vect-r"+round+"-v"+bestFitness+".txt");
-  best.serialize(output);
+  PrintWriter output = createWriter(ts+"-vect-r"+round+"-v"+bestSolution.fitness+".txt");
+  bestSolution.serialize(output);
   output.flush(); // Writes the remaining data to the file
   output.close(); // Finishes the file
-  saveFrame(ts+"-img-r"+round+"-v"+bestFitness+".jpg");
+  saveFrame(ts+"-img-r"+round+"-v"+bestSolution.fitness+".jpg");
 }
 
 void keyPressed() {
