@@ -13,10 +13,9 @@ Iteration | Random | SA, 100000, 0.003 | SA, 80000, 0.005 | fixed drawing / div3
 30000     | 9207   | 9273              | 8289             | 
 
 24000   1600   215s
--> div 8 to div 12
--> 384 to 512 triangles
 
-
+26600 1057      -> 940
+72340  702      -> 647
  */
 PImage monaImg;
 
@@ -26,7 +25,7 @@ final int BORDER_SIZE = 30;
 
 int[] srcColor;
 
-int interation=0;
+int iteration=0;
 
 Mona m;
 long start=System.currentTimeMillis();
@@ -66,8 +65,8 @@ void draw() {
   round++;
   
   if (simulateAnnealing()) {
-    interation++; 
-    println("iteration: "+interation);
+    iteration++; 
+    println("iteration: "+iteration);
     resetSim();
   }
 

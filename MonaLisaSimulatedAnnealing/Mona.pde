@@ -82,8 +82,8 @@ class Mona {
     return fitness;
   }
 
-  void randomize() {
-    form[int(random(form.length))].randomize();
+  void randomize() {    
+    form[int(random(form.length))].randomize();    
   }
 
 
