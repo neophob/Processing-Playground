@@ -6,10 +6,10 @@ ideas:
   -> after 10'000 iterations
 
           | Heuristic Method
-Iteration | Random | SA, 100000, 0.003 | SA, 80000, 0.005 | fixed drawing / 0.005->0.003
+Iteration | Random | SA, 100000, 0.003 | SA, 80000, 0.005 | fixed drawing / div3->div4
 ----------+--------+-------------------+------------------+--------------
-10000     | 14750  | 17309             | 14022            |  13686 / 15758 (14400)
-20000     | 10681  | 10900             | 10194            |
+10000     | 14750  | 17309             | 14022            |  13900
+20000     | 10681  | 10900             | 10194            |  7936
 30000     | 9207   | 9273              | 8289             | 
 
  */
@@ -66,14 +66,14 @@ void draw() {
     resetSim();
   }
 
-  if (round%50==1) { 
+  if (round%20==0) { 
     fill(50);
     rect(0, monaImg.height, monaImg.width*3, BORDER_SIZE);
     fill(255);
     long time = (System.currentTimeMillis()-start)/1000;
     long last = (System.currentTimeMillis()-lastBest)/1000;
     String fitn = nf(bestFitness, 0, 2);
-    String s = "round: "+round+" :: best: "+fitn+" :: temp: "+nf(temp, 0, 2)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago :: layer: "+m.currentLayer;
+    String s = "round: "+round+" :: best: "+fitn+" :: temp: "+nf(temp, 0, 2)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago";
     text(s, 4, monaImg.height+BORDER_SIZE/2);
     //println(s);
   }

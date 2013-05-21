@@ -26,15 +26,12 @@ static double acceptanceProbability(float engery, float newEngery, float tempera
 
 //gets called for the detail step
 void resetSim() {
-  //bestFitness = 9999999;
-  //currentEngery = -1;
   if (interation<3) {
     temp = INITIAL_HEAT;
   } else {
 //    temp = 8;
   }
   coolingRate = COOLING_RATE;
-  //m = best;
 }
 
 boolean simulateAnnealing() {
@@ -70,7 +67,6 @@ boolean simulateAnnealing() {
     return false;
   }
 
-  m.triggerNextRound();
   //finished
   return true;
 }

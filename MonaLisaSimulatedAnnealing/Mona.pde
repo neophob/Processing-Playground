@@ -1,35 +1,18 @@
+final int NR_OF_TRIANGLES = 384;
 
 class Mona {
-  final int MAX_LAYERS = 3;
-
-//128, 256, 384
-  int[] TrianglesPerLayer = {
-//    256, 512, 512
-//128, 256, 384
-32, 128, 512
-  };  
-
-  int maxLayer;
-  int currentLayer;
-  Triangle[][] form;
+  Triangle[] form;
 
   float fitness;
-
-  int xofs;
 
   /**
    * create new system
    */
   public Mona() {
-    form = new Triangle[MAX_LAYERS][TrianglesPerLayer[2]];
-    xofs=0;
-    currentLayer=0;
-    maxLayer=0;
+    form = new Triangle[NR_OF_TRIANGLES];
 
-    for (int j = 0; j < MAX_LAYERS; j++) {
-      for (int i = 0; i < TrianglesPerLayer[j]; i++) {
-        form[j][i] = new Triangle(j);
-      }
+    for (int j = 0; j < NR_OF_TRIANGLES; j++) {
+        form[j] = new Triangle();
     }
   }
 
@@ -37,15 +20,10 @@ class Mona {
    * clone a system
    */
   public Mona(Mona m) {
-    form = new Triangle[MAX_LAYERS][TrianglesPerLayer[2]];
-    for (int j = 0; j < MAX_LAYERS; j++) {
-      for (int i = 0; i < TrianglesPerLayer[j]; i++) {
-        form[j][i] = m.form[j][i].clone();
-      }
+    form = new Triangle[NR_OF_TRIANGLES];
+    for (int j = 0; j < NR_OF_TRIANGLES; j++) {
+        form[j] = m.form[j].clone();
     }
-    currentLayer = m.currentLayer;
-    maxLayer=m.maxLayer;
-    
   }
 
 
@@ -59,24 +37,17 @@ class Mona {
 
   float fitness() {
     fill(0);
-    rect(xofs, 0, monaImg.width, monaImg.height);
+    rect(0, 0, monaImg.width, monaImg.height);
 
     //draw
-    for (int j = 0; j < maxLayer+1; j++) {
-      //println(round+" DRAW L"+j+" "+TrianglesPerLayer[j]);
-      for (int i=0; i<TrianglesPerLayer[j]; i++) {        
-        form[j][i].draw(xofs);
-      }
+    for (int j = 0; j < NR_OF_TRIANGLES; j++) {
+        form[j].draw();
     }
-/*      for (int i=0; i<TrianglesPerLayer[currentLayer]; i++) {        
-        form[currentLayer][i].draw(xofs);
-      }
-  */  
 
     //calculate    
     loadPixels();
     fitness = 0f;
-    int ofs=xofs;
+    int ofs=0;
     int srcOfs = 0;
     for (int y=0; y<monaImg.height; y++) {
       for (int x=0; x<monaImg.width; x++) {
@@ -111,38 +82,20 @@ class Mona {
   }
 
   void randomize() {
-    //int layerNr = int(random(currentLayer));
-    //int pos = int(random(TrianglesPerLayer[layerNr]));
-    //    form[layerNr][pos].randomize();
-
-    int s=int(random(TrianglesPerLayer[currentLayer]));
-    //println(s+" "+currentLayer);
-    form[currentLayer][s].randomize();
-  }
-
-
-  void triggerNextRound() {
-    currentLayer++;    
-    if (currentLayer>2) {
-      currentLayer=0;
-    }
-    
-    if (maxLayer<currentLayer) {
-      maxLayer = currentLayer;
-    }
+    form[int(random(NR_OF_TRIANGLES))].randomize();
   }
 
 
   final String DELIM = ";";
 
   void serialize(PrintWriter output) {
-    for (int j = 0; j < MAX_LAYERS; j++) {
+/*    for (int j = 0; j < MAX_LAYERS; j++) {
       for (int i = 0; i < TrianglesPerLayer[j]; i++) {
         Triangle t=form[j][i];
         int c = t.col&255;
-        output.println(t.p1.x+DELIM+t.p1.y+DELIM+t.p2.x+DELIM+t.p2.y+DELIM+t.p3.x+DELIM+t.p3.y+DELIM+c);
+//        output.println(t.p1.x+DELIM+t.p1.y+DELIM+t.p2.x+DELIM+t.p2.y+DELIM+t.p3.x+DELIM+t.p3.y+DELIM+c);
       }
-    }
+    }*/
   }
 }
 

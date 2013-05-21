@@ -1,27 +1,20 @@
 class Triangle {
-  PVector p1;
-  PVector p2;
-  PVector p3;
+  float x1, x2, x3, y1, y2, y3;
   int col;
 
-  int layer;
-  int vSelect;
-  int r;
-
-  public Triangle(int layr) {
-    r=int(random(20));
-    layer=layr;
+  public Triangle() {
     randomize();
   }
 
   public Triangle(String a) {
+    
   }
 
   //rndomize color
   void randomizeColor() {
     if (COLOR_MODE) {
       if (random(50)<2) {
-        col=color(0,0,0, random(192));
+        col=color(0, 0, 0, random(192));
         return;
       }
       //return color(int(random(255)), int(random(255)), int(random(255)), random(255));
@@ -38,81 +31,48 @@ class Triangle {
     randomizeColor();
   }
 
-  void draw(int xofs) {
+  void draw() {
     fill(col);
-    triangle(xofs+p1.x, p1.y, xofs+p2.x, p2.y, xofs+p3.x, p3.y);
+    triangle(x1, y1, x2, y2, x3, y3);
   }
 
   Triangle clone() {
     Triangle t = new Triangle("");
-    t.p1=p1;
-    t.p2=p2;
-    t.p3=p3;
+    t.x1=x1;
+    t.x2=x2;
+    t.x3=x3;
+    t.y1=y1;
+    t.y2=y2;
+    t.y3=y3;
     t.col=col;
-    t.vSelect=vSelect;
-    t.r=r;
-    t.layer=layer;
     return t;
   }  
 
   void randomizeVectors() {
-    int w2 = monaImg.width/2;
-    int h2 = monaImg.height/2;
-    int w4 = monaImg.width/4;
-    int h4 = monaImg.height/4;
-
-
-    r++;
+    float angle = random(360);
+    float l1 = random(monaImg.width/4);
+    float l2 = random(monaImg.height/4);
     
-    switch (layer) {
-    case 0:
-      p1 = new PVector(random(monaImg.width), random(monaImg.height));
-      p2 = new PVector(random(monaImg.width), random(monaImg.height));
-      p3 = new PVector(random(monaImg.width), random(monaImg.height));
-      return; 
+    float x = random(monaImg.width);
+    float y = random(monaImg.height);
+    
+    float deg = (angle) % TWO_PI;
+    float f = x+cos(deg)*l1;
+    x1 = f>monaImg.width ? monaImg.width: f;
+    f = y+sin(deg)*l2;
+    y1 = f>monaImg.height ? monaImg.height: f;
 
-    case 1:
-      switch (r%4) {
-      case 0:
-        p1 = new PVector( int(random(w2)), int(random(h2)) );
-        p2 = new PVector( int(random(w2)), int(random(h2)) );
-        p3 = new PVector( int(random(w2)), int(random(h2)) );
-        return;
-        
-      case 1:
-        p1 = new PVector( int(random(w2))+w2, int(random(h2)) );
-        p2 = new PVector( int(random(w2))+w2, int(random(h2)) );
-        p3 = new PVector( int(random(w2))+w2, int(random(h2)) );
-        return;
-        
-      case 2:
-        p1 = new PVector( int(random(w2)), int(random(h2))+h2 );
-        p2 = new PVector( int(random(w2)), int(random(h2))+h2 );
-        p3 = new PVector( int(random(w2)), int(random(h2))+h2 );
-        return;
-
-      case 3:  
-      default:    
-        p1 = new PVector( int(random(w2))+w2, int(random(h2))+h2);
-        p2 = new PVector( int(random(w2))+w2, int(random(h2))+h2);
-        p3 = new PVector( int(random(w2))+w2, int(random(h2))+h2);
-        return;
-      }
-
-
-    case 2:
-      int ofs = r%16; //0..16
-      int tx=w4*(ofs%4);
-      int ty=h4*(ofs/4);
-      p1 = new PVector(  int(random(w4))+tx,  int(random(h4))+ty);
-      p2 = new PVector(  int(random(w4))+tx,  int(random(h4))+ty);
-      p3 = new PVector(  int(random(w4))+tx,  int(random(h4))+ty);
-      return;
-      
-    default:
-      println("ERROR!"+layer);
-      return;      
-    }
+    deg = (1*2*THIRD_PI + angle) % TWO_PI;
+    f = x+cos(deg)*l1;
+    x2 = f>monaImg.width ? monaImg.width: f;
+    f = y+sin(deg)*l2;
+    y2 = f>monaImg.height ? monaImg.height: f;
+    
+    deg = (2*2*THIRD_PI + angle) % TWO_PI;
+    f = x+cos(deg)*l1;
+    x3 = f>monaImg.width ? monaImg.width: f;
+    f = y+sin(deg)*l2;
+    y3 = f>monaImg.height ? monaImg.height: f;
   }
 }
 
