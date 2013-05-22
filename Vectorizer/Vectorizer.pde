@@ -6,11 +6,11 @@ ideas:
   -> after 10'000 iterations
 
           | Heuristic Method
-Iteration | Random | SA, 100000, 0.003 | SA, 80000, 0.005 | fixed drawing / div3->div4
-----------+--------+-------------------+------------------+--------------
-10000     | 14750  | 17309             | 14022            |  13900
-20000     | 10681  | 10900             | 10194            |  7936
-30000     | 9207   | 9273              | 8289             | 
+Iteration | Random | SA, 1000000/0.99 | SA, 10000/0.999 | SA, 10000/0.99 | no 
+----------+--------+------------------+-----------------+----------------+--------
+1000      | 25000  | 41000            | 46000           | 31000          | 35000 38k 29k 31k
+2000      | 18000  | 23000            | 38000           | 19500          | /28k 23k
+5000      | 12000  | 13400            | 25000           | 12900          | 14k
 
  */
 PImage monaImg;
@@ -37,11 +37,11 @@ void setup() {
   }
 
   //monaImg = loadImage("mona.jpg");
-  monaImg = loadImage("mona-col.jpg");
+  //monaImg = loadImage("mona-col.jpg");
   //monaImg = loadImage("watch.jpg");
   //  monaImg = loadImage("comic.jpg");
   //monaImg = loadImage("dp.jpg");
-  //monaImg = loadImage("ego.jpg");
+  monaImg = loadImage("ego.jpg");
 
   monaImg.loadPixels();
   srcColor = monaImg.pixels;
@@ -53,18 +53,16 @@ void setup() {
   
   noStroke();  
   
-  initSimulatedAnnealing();
+  initHeuristic();
 }
 
 
 void draw() {
   round++;
   
-  if (simulateAnnealing()) {
-    iteration++; 
-    //println("iteration: "+iteration);
-    resetSim();
-  }
+  //randomHeuristic();
+  //simulateAnnealing();
+  greedyHeuristic();
 
   if (round%20==0) { 
     fill(50);
@@ -73,7 +71,7 @@ void draw() {
     long time = (System.currentTimeMillis()-start)/1000;
     long last = (System.currentTimeMillis()-lastBest)/1000;
     String fitn = nf(bestSolution.fitness, 0, 2);
-    String s = "round: "+round+" :: best: "+fitn+" :: temp: "+nf(temp, 0, 2)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago";
+    String s = "round: "+round+" :: best: "+fitn+" :: temp: "+nf(saTemp, 0, 2)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago";
     text(s, 4, monaImg.height+BORDER_SIZE/2);
     //println(s);
   }

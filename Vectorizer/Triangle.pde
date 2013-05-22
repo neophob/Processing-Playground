@@ -1,13 +1,26 @@
 class Triangle {
   float x1, x2, x3, y1, y2, y3;
   int col;
-
+  
   public Triangle() {
     randomize();
   }
 
+
+  Triangle clone() {
+    Triangle t = new Triangle("");
+    t.x1=x1;
+    t.x2=x2;
+    t.x3=x3;
+    t.y1=y1;
+    t.y2=y2;
+    t.y3=y3;
+    t.col=col;
+    return t;    
+  }  
+  
   public Triangle(String a) {
-    
+    //dummy constructor
   }
 
   //rndomize color
@@ -32,23 +45,12 @@ class Triangle {
     triangle(x1, y1, x2, y2, x3, y3);
   }
 
-  Triangle clone() {
-    Triangle t = new Triangle("");
-    t.x1=x1;
-    t.x2=x2;
-    t.x3=x3;
-    t.y1=y1;
-    t.y2=y2;
-    t.y3=y3;
-    t.col=col;
-    return t;
-  }  
 
-  void randomizeVectors() {
+  void randomizeVectors() {    
     float angle = random(360);
     float l1 = random(monaImg.width/8);
     float l2 = random(monaImg.height/8);
-    
+
     float x = random(monaImg.width);
     float y = random(monaImg.height);
     

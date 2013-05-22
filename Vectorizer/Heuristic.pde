@@ -1,14 +1,12 @@
-final float INITIAL_HEAT = 1000000;
-//final float INITIAL_HEAT = 00000;
+// -- SIMULATED_ANNEALING --
 
-//final float COOLING_RATE = 0.0008;
-final float COOLING_RATE = 0.99;
+final float SIMULATED_ANNEALING_INITIAL_HEAT = 1000000;
+final float SIMULATED_ANNEALING_COOLING_RATE = 0.99f;
 
 // Set initial temp
-float temp = INITIAL_HEAT;
+float saTemp = SIMULATED_ANNEALING_INITIAL_HEAT;
+// -- SIMULATED_ANNEALING --
 
-// Cooling rate
-float coolingRate = COOLING_RATE;
 
 // Save best;
 TriangleFrame currentSolution;
@@ -18,27 +16,45 @@ TriangleFrame bestSolution;
 
 long lastBest = 0;
 
-void initSimulatedAnnealing() {
+void initHeuristic() {
   workingSolution = new TriangleFrame(monaImg.width, monaImg.height);
   currentSolution = new TriangleFrame(workingSolution);
   bestSolution    = new TriangleFrame(workingSolution);
 }
 
-
-
-//gets called for the detail step
-void resetSim() {
-/*  if (iteration<3) {
-    //    temp = 8;
-    temp=INITIAL_HEAT;
-    currentSolution = new TriangleFrame(bestSolution);
-    workingSolution = new TriangleFrame(bestSolution);
-  }*/
+//
+// GREEDY
+//
+void greedyHeuristic() {
+  currentSolution = new TriangleFrame(bestSolution);
+  currentSolution.randomize();
+  currentSolution.shuffle();
+  
+  if (currentSolution.getFitness() < bestSolution.getFitness()) {
+    bestSolution = new TriangleFrame(currentSolution);
+    println("new best: "+bestSolution.getFitness());
+    lastBest = System.currentTimeMillis();      
+    copy(0, 0, monaImg.width, monaImg.height, monaImg.width, 0, monaImg.width, monaImg.height);
+  }  
 }
 
+//
+// RANDOM (Greedy?)
+//
+void randomHeuristic() {
+  currentSolution = new TriangleFrame(bestSolution);
+  currentSolution.randomize();
+
+  if (currentSolution.getFitness() < bestSolution.getFitness()) {
+    bestSolution = new TriangleFrame(currentSolution);
+    println("new best: "+bestSolution.getFitness());
+    lastBest = System.currentTimeMillis();      
+    copy(0, 0, monaImg.width, monaImg.height, monaImg.width, 0, monaImg.width, monaImg.height);
+  }
+}
 
 //
-// Main lop
+// SIMULATED_ANNEALING
 //
 boolean simulateAnnealing() {
   //newSolution = new TriangleFrame(workingSolution);
@@ -53,7 +69,7 @@ boolean simulateAnnealing() {
     //new solution wasnt better, but maybe use it anyway
     float test = random(1);
     float delta = workingSolution.getFitness() - currentSolution.getFitness();
-    float calc = (float)Math.exp(-delta / temp);
+    float calc = (float)Math.exp(-delta / saTemp);
     //jump out of any local optimums it finds itself in early on in execution
     if (calc > test) {
       useNewSolution = true;
@@ -63,7 +79,7 @@ boolean simulateAnnealing() {
   if (useNewSolution) {
     currentSolution = new TriangleFrame(workingSolution);
 
-    if (currentSolution.getFitness() <= bestSolution.getFitness()) {
+    if (currentSolution.getFitness() < bestSolution.getFitness()) {
       bestSolution = new TriangleFrame(currentSolution);
       println("new best: "+bestSolution.getFitness());
       lastBest = System.currentTimeMillis();      
@@ -74,8 +90,8 @@ boolean simulateAnnealing() {
   }
 
   // Cool system
-  temp *= coolingRate;
-  if (temp>1) {
+  saTemp *= SIMULATED_ANNEALING_COOLING_RATE;
+  if (saTemp>1) {
     return false;
   }
 

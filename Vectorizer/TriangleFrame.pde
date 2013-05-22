@@ -1,6 +1,11 @@
 //final int NR_OF_TRIANGLES = 384;
 final int NR_OF_TRIANGLES = 512;
 
+/**
+ * a triangle frame contains n triangles
+ * randomize change ONE triangle per time
+ * -> there is no local optimum as each randomize call generates a NEW content
+ */
 class TriangleFrame {
   Triangle[] form;
 
@@ -11,7 +16,6 @@ class TriangleFrame {
    */
   public TriangleFrame(int imagexSize, int imageYsize) {
     int nrOfTriangles = NR_OF_TRIANGLES;
-    println("using "+nrOfTriangles+" triangles");
     form = new Triangle[nrOfTriangles];
 
     for (int j = 0; j < form.length; j++) {
@@ -100,7 +104,15 @@ class TriangleFrame {
     fitness = 0;
   }
 
-
+  void shuffle() {    
+    int src = int(random(form.length));
+    int dst = int(random(form.length));
+    Triangle t = form[src];
+    form[src] = form[dst];
+    form[dst] = t;
+    fitness = 0;
+  }
+  
   final String DELIM = ";";
 
   void serialize(PrintWriter output) {
