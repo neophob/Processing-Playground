@@ -1,5 +1,5 @@
 //final int NR_OF_TRIANGLES = 384;
-final int NR_OF_TRIANGLES = 512;
+final int NR_OF_TRIANGLES = 512*2;
 
 /**
  * a triangle frame contains n triangles
@@ -59,9 +59,17 @@ class TriangleFrame {
     rect(0, 0, monaImg.width, monaImg.height);
 
     //draw
-    for (int j = 0; j < form.length; j++) {
+/*    for (int j = 0; j < form.length; j++) {
       form[j].draw();
+    }*/
+    beginShape(TRIANGLES);
+    for (int j = 0; j < form.length; j++) {
+      fill(form[j].col);
+      vertex(form[j].x1, form[j].y1);
+      vertex(form[j].x2, form[j].y2);
+      vertex(form[j].x3, form[j].y3);
     }
+    endShape();
 
     //calculate    
     loadPixels();
@@ -75,7 +83,6 @@ class TriangleFrame {
         int dst = pixels[ofs]&255;
         float diffR = diffAbs(src, dst);
 
-        float pixelFitness;
         if (COLOR_MODE) {
           src = (srcColor[srcOfs]>>16)&255;
           dst = (pixels[ofs]>>16)&255;
@@ -101,6 +108,7 @@ class TriangleFrame {
   //
   void randomize() {    
     form[int(random(form.length))].randomize();
+    //shuffle();
     fitness = 0;
   }
 
@@ -122,4 +130,3 @@ class TriangleFrame {
     }
   }
 }
-

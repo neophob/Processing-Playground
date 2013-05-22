@@ -37,11 +37,11 @@ void setup() {
   }
 
   //monaImg = loadImage("mona.jpg");
-  //monaImg = loadImage("mona-col.jpg");
+  monaImg = loadImage("mona-col.jpg");
   //monaImg = loadImage("watch.jpg");
   //  monaImg = loadImage("comic.jpg");
   //monaImg = loadImage("dp.jpg");
-  monaImg = loadImage("ego.jpg");
+  //monaImg = loadImage("ego.jpg");
 
   monaImg.loadPixels();
   srcColor = monaImg.pixels;
@@ -75,6 +75,10 @@ void draw() {
     text(s, 4, monaImg.height+BORDER_SIZE/2);
     //println(s);
   }
+  
+  if (round%100000==0) {
+    saveImage();
+  } 
 }
 
 void saveImage() {
@@ -92,4 +96,3 @@ void keyPressed() {
     saveImage();
   }
 }
-

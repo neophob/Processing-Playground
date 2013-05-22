@@ -1,7 +1,7 @@
 // -- SIMULATED_ANNEALING --
 
-final float SIMULATED_ANNEALING_INITIAL_HEAT = 1000000;
-final float SIMULATED_ANNEALING_COOLING_RATE = 0.99f;
+final float SIMULATED_ANNEALING_INITIAL_HEAT = 500000;
+final float SIMULATED_ANNEALING_COOLING_RATE = 0.999f;
 
 // Set initial temp
 float saTemp = SIMULATED_ANNEALING_INITIAL_HEAT;
@@ -31,12 +31,12 @@ void initHeuristic() {
  39k  (400)   28k  28k    26k
  31k  (800)   21k  22k    21k
  21k  (1600)  16k         15k
-      (5000)              10k (160s)
+      (5000)              10k (160s) 136s
  */
 void randomHeuristic2() {
   currentSolution = new TriangleFrame(bestSolution);
 
-  if (bestSolution.getFitness() > 20000) {
+/*  if (bestSolution.getFitness() > 20000) {
     currentSolution.randomize();
     currentSolution.randomize();
     currentSolution.randomize();
@@ -51,12 +51,13 @@ void randomHeuristic2() {
     currentSolution.randomize();
     currentSolution.randomize();
     currentSolution.randomize();
-  } else if (bestSolution.getFitness() > 7500) {
+  } else if (bestSolution.getFitness() > 1500) {
     currentSolution.randomize();
     currentSolution.randomize();
   } else {
     currentSolution.randomize();
-  }
+  }*/
+  for (int i=0; i<int(random(6))+1; i++) currentSolution.randomize();
 
   if (currentSolution.getFitness() < bestSolution.getFitness()) {
     bestSolution = new TriangleFrame(currentSolution);

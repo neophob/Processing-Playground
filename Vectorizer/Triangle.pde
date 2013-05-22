@@ -1,9 +1,11 @@
+
 class Triangle {
   float x1, x2, x3, y1, y2, y3;
   int col;
   
   public Triangle() {
-    randomize();
+    randomizeVectors();
+    randomizeColor();
   }
 
 
