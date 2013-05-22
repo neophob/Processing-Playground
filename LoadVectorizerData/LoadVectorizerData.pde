@@ -1,26 +1,20 @@
-final String VECTORFILE = "test.txt";
-final float  MAX_SCALE = 2.5;
+//final String VECTORFILE = "test.txt";
+final String VECTORFILE = "ego.txt";
+final int  SIZE = 800;
 
 float[][] triangles;
 int[] col;
 
-float maxX = 0;
-float maxY = 0;
-
 void setup() {
   loadVectorFile();
-  size(int(maxX*MAX_SCALE), int(maxY*MAX_SCALE), P2D);
+  size(SIZE, SIZE, P2D);
   background(0);
   noStroke();
-  frameRate(50);
+  frameRate(1);
+  drawVector(SIZE);
 }
 
-float scale=1;
-
 void draw() {
-  drawVector(scale);
-  scale+=0.01f;
-  if (scale>MAX_SCALE) scale=1;
 }
 
 void drawVector(float scale) {
@@ -49,6 +43,14 @@ void loadVectorFile() {
     String[] entry = lines[i].split(";");
     col[i] = int(entry[6])&0xffffffff;
     
+   if (alpha(col[i])<0.2f) {
+     println(i+": low alpha: "+hex(col[i]));
+   } 
+   
+   if (red(col[i])<0.2f && blue(col[i])<0.2f && green(col[i])<0.2f) {
+     println(i+": low value: "+hex(col[i]));
+   }
+    
     triangles[i][0] = float(entry[0]); 
     triangles[i][2] = float(entry[2]);
     triangles[i][4] = float(entry[4]);
@@ -56,8 +58,6 @@ void loadVectorFile() {
     triangles[i][3] = float(entry[3]);
     triangles[i][5] = float(entry[5]);
     
-    maxX = max(maxX, max(triangles[i][0], triangles[i][2], triangles[i][4]));
-    maxY = max(maxY, max(triangles[i][1], triangles[i][3], triangles[i][5]));
   }
    
 }

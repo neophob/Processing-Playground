@@ -1,6 +1,7 @@
 /*
 ideas:
  -find hidden triangles and remove them
+ -variable triangle numbers
  
  */
 PImage monaImg;
@@ -31,7 +32,8 @@ void setup() {
   //monaImg = loadImage("watch.jpg");
   //  monaImg = loadImage("comic.jpg");
   //monaImg = loadImage("dp.jpg");
-  monaImg = loadImage("ego.jpg");
+  //monaImg = loadImage("ego.jpg");
+  monaImg = loadImage("ego-small.jpg");
 
   monaImg.loadPixels();
   srcColor = monaImg.pixels;

@@ -62,6 +62,8 @@ class TriangleFrame {
 /*    for (int j = 0; j < form.length; j++) {
       form[j].draw();
     }*/
+    
+    //drawing tringles like this is faster than calling triangle
     beginShape(TRIANGLES);
     for (int j = 0; j < form.length; j++) {
       fill(form[j].col);
@@ -123,10 +125,19 @@ class TriangleFrame {
   
   final String DELIM = ";";
 
+  //round the float 
+  private float myNf(float f) {
+    return round(f*10000)/10000f;
+  }
+
   void serialize(PrintWriter output) {
     for (int j = 0; j < form.length; j++) {      
       Triangle t=form[j];
-      output.println(t.x1+DELIM+t.y1+DELIM+ t.x2+DELIM+t.y2+DELIM+ t.x3+DELIM+t.y3+DELIM+(t.col&0xffffffff));
+      output.println(
+        myNf(t.x1/monaImg.width)+DELIM+myNf(t.y1/monaImg.height)+DELIM+
+        myNf(t.x2/monaImg.width)+DELIM+myNf(t.y2/monaImg.height)+DELIM+ 
+        myNf(t.x3/monaImg.width)+DELIM+myNf(t.y3/monaImg.height)+DELIM+
+        (t.col&0xffffffff));
     }
   }
 }
