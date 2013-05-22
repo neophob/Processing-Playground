@@ -60,9 +60,9 @@ void setup() {
 void draw() {
   round++;
   
+  randomHeuristic2();
   //randomHeuristic();
-  //simulateAnnealing();
-  greedyHeuristic();
+  //simulateAnnealing();  
 
   if (round%20==0) { 
     fill(50);

@@ -23,19 +23,47 @@ void initHeuristic() {
 }
 
 //
-// GREEDY
+// RANDOM (Greedy?)
 //
-void greedyHeuristic() {
+/*
+ 49k  (100)   40k  40k    38k 
+ 46k  (200)        34k    32k
+ 39k  (400)   28k  28k    26k
+ 31k  (800)   21k  22k    21k
+ 21k  (1600)  16k         15k
+      (5000)              10k (160s)
+ */
+void randomHeuristic2() {
   currentSolution = new TriangleFrame(bestSolution);
-  currentSolution.randomize();
-  currentSolution.shuffle();
-  
+
+  if (bestSolution.getFitness() > 20000) {
+    currentSolution.randomize();
+    currentSolution.randomize();
+    currentSolution.randomize();
+    currentSolution.randomize();    
+    currentSolution.randomize();
+  } else if (bestSolution.getFitness() > 13000) {
+    currentSolution.randomize();
+    currentSolution.randomize();
+    currentSolution.randomize();    
+    currentSolution.randomize();    
+  } else if (bestSolution.getFitness() > 9500) {
+    currentSolution.randomize();
+    currentSolution.randomize();
+    currentSolution.randomize();
+  } else if (bestSolution.getFitness() > 7500) {
+    currentSolution.randomize();
+    currentSolution.randomize();
+  } else {
+    currentSolution.randomize();
+  }
+
   if (currentSolution.getFitness() < bestSolution.getFitness()) {
     bestSolution = new TriangleFrame(currentSolution);
     println("new best: "+bestSolution.getFitness());
     lastBest = System.currentTimeMillis();      
     copy(0, 0, monaImg.width, monaImg.height, monaImg.width, 0, monaImg.width, monaImg.height);
-  }  
+  }
 }
 
 //
