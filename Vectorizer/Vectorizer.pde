@@ -1,17 +1,7 @@
 /*
 ideas:
- -split image up in multiple parts and verify which are the badest parts.
- update triangles there
- -compare current result with "Random Sampling" heuristic
-  -> after 10'000 iterations
-
-          | Heuristic Method
-Iteration | Random | SA, 1000000/0.99 | SA, 10000/0.999 | SA, 10000/0.99 | no 
-----------+--------+------------------+-----------------+----------------+--------
-1000      | 25000  | 41000            | 46000           | 31000          | 35000 38k 29k 31k
-2000      | 18000  | 23000            | 38000           | 19500          | /28k 23k
-5000      | 12000  | 13400            | 25000           | 12900          | 14k
-
+ -find hidden triangles and remove them
+ 
  */
 PImage monaImg;
 
@@ -37,17 +27,17 @@ void setup() {
   }
 
   //monaImg = loadImage("mona.jpg");
-  monaImg = loadImage("mona-col.jpg");
+  //monaImg = loadImage("mona-col.jpg");
   //monaImg = loadImage("watch.jpg");
   //  monaImg = loadImage("comic.jpg");
   //monaImg = loadImage("dp.jpg");
-  //monaImg = loadImage("ego.jpg");
+  monaImg = loadImage("ego.jpg");
 
   monaImg.loadPixels();
   srcColor = monaImg.pixels;
   monaImg.updatePixels();
 
-  size(monaImg.width*3, monaImg.height+BORDER_SIZE, P3D);
+  size(monaImg.width*3, monaImg.height+BORDER_SIZE, P2D);
   background(0);  
   image(monaImg, monaImg.width*2, 0);
   

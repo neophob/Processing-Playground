@@ -1,5 +1,5 @@
 //final int NR_OF_TRIANGLES = 384;
-final int NR_OF_TRIANGLES = 512*2;
+final int NR_OF_TRIANGLES = 512*4;
 
 /**
  * a triangle frame contains n triangles

@@ -57,7 +57,7 @@ void randomHeuristic2() {
   } else {
     currentSolution.randomize();
   }*/
-  for (int i=0; i<int(random(6))+1; i++) currentSolution.randomize();
+  for (int i=0; i<int(random(4))+1; i++) currentSolution.randomize();
 
   if (currentSolution.getFitness() < bestSolution.getFitness()) {
     bestSolution = new TriangleFrame(currentSolution);
