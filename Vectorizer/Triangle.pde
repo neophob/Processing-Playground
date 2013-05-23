@@ -5,7 +5,7 @@ class Triangle {
 
   public Triangle() {
     randomizeVectors();
-    randomizeColor();
+    //randomizeColor();
   }
 
 
@@ -26,9 +26,21 @@ class Triangle {
   }
 
   //rndomize color
-  void randomizeColor() {
+  void randomizeColor(int x, int y, int lx, int ly) {
     if (COLOR_MODE) {
-      int c=srcColor[int(random(srcColor.length))];
+      
+      int ofsy = y+int(random(ly)-ly/2);
+      if (ofsy > monaImg.height-2) ofsy=monaImg.height-1;
+      if (ofsy <0) ofsy=0;
+      
+      int ofsx = x+int(random(lx)-lx/2);
+      if (ofsx > monaImg.width-2) ofsx=monaImg.width-1;
+      if (ofsx <0) ofsx=0;
+      
+      int c=srcColor[ofsy*monaImg.width+ofsx];
+      
+      //int c=srcColor[int(random(srcColor.length))];
+      
       col=(c & 0xffffff) | ((48+int(random(207))) << 24);
     } else {
       col=color(int(random(255)), 48+random(207));
@@ -37,7 +49,7 @@ class Triangle {
 
   void randomize() {
     randomizeVectors();
-    randomizeColor();
+    //randomizeColor();
   }
 
   void draw() {
@@ -65,6 +77,8 @@ class Triangle {
 
     float x = random(monaImg.width);
     float y = random(monaImg.height);
+
+    randomizeColor(int(x), int(y), int(l1), int(l2));
 
     float deg = (angle) % TWO_PI;
     float f = x+cos(deg)*l1;

@@ -32,8 +32,8 @@ void setup() {
   //monaImg = loadImage("watch.jpg");
   //  monaImg = loadImage("comic.jpg");
   //monaImg = loadImage("dp.jpg");
-  //monaImg = loadImage("ego.jpg");
-  monaImg = loadImage("ego-small.jpg");
+  monaImg = loadImage("ego.jpg");
+ // monaImg = loadImage("ego-small.jpg");
 
   monaImg.loadPixels();
   srcColor = monaImg.pixels;
@@ -52,11 +52,12 @@ void setup() {
 void draw() {
   round++;
   
+  for (int i=0; i<8; i++)
   randomHeuristic2();
   //randomHeuristic();
   //simulateAnnealing();  
 
-  if (round%20==0) { 
+  //if (round%20==0) { 
     fill(50);
     rect(0, monaImg.height, monaImg.width*3, BORDER_SIZE);
     fill(255);
@@ -66,7 +67,7 @@ void draw() {
     String s = "round: "+round+" :: best: "+fitn+" :: temp: "+nf(saTemp, 0, 2)+" :: fps:"+int(frameRate)+" :: in "+time+"s :: last "+last+"s ago";
     text(s, 4, monaImg.height+BORDER_SIZE/2);
     //println(s);
-  }
+  //
   
   if (round%100000==0) {
     saveImage();
@@ -86,5 +87,5 @@ void keyPressed() {
   if (key=='s') {
     println("save");
     saveImage();
-  }
+  } else println("key "+char(key));
 }
