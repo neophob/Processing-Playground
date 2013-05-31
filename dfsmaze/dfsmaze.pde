@@ -1,3 +1,7 @@
+// just a simple maze generator and solver
+// keywords: backtrack, dfs
+// 2013 by michu@neophob.com
+
 import java.util.*;
 
 int MAZE_WIDTH = 50;
@@ -63,19 +67,18 @@ void drawCell(Cell cell) {
   
   int x2 = cell.x*MAZ_BLOCK_SIZE;
   int y2 = cell.y*MAZ_BLOCK_SIZE;  
-  
+
   //draw unvisited cells flat/white
   if ((!createMazeFinished && !cell.visited) || drawDot) {
     rect(x2, y2, MAZ_BLOCK_SIZE, MAZ_BLOCK_SIZE);
-    return;
-  }
-  
-  if (createMazeFinished /*&& cell.bgCol>0*/) {
+    //return;
+    fill(cell.col);
+  } else if (createMazeFinished /*&& cell.bgCol>0*/) {
     fill(cell.bgCol);
     rect(x2, y2, MAZ_BLOCK_SIZE, MAZ_BLOCK_SIZE);
     fill(cell.col);
   }
-  
+   
  //top wall
   if (cell.walls[0]==1) 
   rect(x2, y2, MAZ_BLOCK_SIZE, WALL_SIZE);
