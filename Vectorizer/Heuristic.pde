@@ -22,6 +22,11 @@ void initHeuristic() {
   bestSolution    = new TriangleFrame(workingSolution);
 }
 
+int nrOf
+void firstFitHeuristic() {
+  //insert only if better
+}
+
 //
 // RANDOM (Greedy?)
 //
@@ -36,27 +41,6 @@ void initHeuristic() {
 void randomHeuristic2() {
   currentSolution = new TriangleFrame(bestSolution);
 
-/*  if (bestSolution.getFitness() > 20000) {
-    currentSolution.randomize();
-    currentSolution.randomize();
-    currentSolution.randomize();
-    currentSolution.randomize();    
-    currentSolution.randomize();
-  } else if (bestSolution.getFitness() > 13000) {
-    currentSolution.randomize();
-    currentSolution.randomize();
-    currentSolution.randomize();    
-    currentSolution.randomize();    
-  } else if (bestSolution.getFitness() > 9500) {
-    currentSolution.randomize();
-    currentSolution.randomize();
-    currentSolution.randomize();
-  } else if (bestSolution.getFitness() > 1500) {
-    currentSolution.randomize();
-    currentSolution.randomize();
-  } else {
-    currentSolution.randomize();
-  }*/
   for (int i=0; i<int(random(4))+1; i++) currentSolution.randomize();
 
   if (currentSolution.getFitness() < bestSolution.getFitness()) {
