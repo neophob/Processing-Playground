@@ -45,7 +45,7 @@ void doMaze() {
 
   Cell c = chooseRandomNeighbour();
   if (c!=null && !c.visited) {
-    //joint position, save current position
+    //junction position, save current position on stack
     stack.push(currentCell);
 
     //break up walls
@@ -56,11 +56,10 @@ void doMaze() {
     c.visited=true;
     currentCell=c;
   } else if (!stack.isEmpty()) {
-    //return to last position    
+    //return to last position aka backtracking   
     do {
       currentCell = stack.pop();
-    } 
-    while (!stack.isEmpty () && chooseRandomNeighbour()==null);
+    } while (!stack.isEmpty () && chooseRandomNeighbour()==null);
   } else {
     println("maze created");
     initSolver();

@@ -43,7 +43,7 @@ Cell chooseNextPossibleDirecton() {
 void solveMaze() {
   Cell c = chooseNextPossibleDirecton();  
   if (c!=null && !c.visited) {
-    //joint position, save current position
+    //junction position, save current position on stack
     stack.push(currentCell);
 
     //mark way    
@@ -53,7 +53,7 @@ void solveMaze() {
     c.visited=true;
     currentCell=c;
   } else if (!stack.isEmpty()) {
-    //return to last position
+    //return to last position aka backtracking
     currentCell.bgCol=0;    
     do {
       currentCell = stack.pop();

@@ -4,10 +4,10 @@
 
 import java.util.*;
 
-int MAZE_WIDTH = 50;
-int MAZE_HEIGHT = 30;
-int MAZ_BLOCK_SIZE=20;
-int WALL_SIZE=2;
+int MAZE_WIDTH = 100;
+int MAZE_HEIGHT = 60;
+int MAZ_BLOCK_SIZE=10;
+int WALL_SIZE=1;
 
 Cell[][] cell = new Cell[MAZE_WIDTH][MAZE_HEIGHT];
 Deque<Cell> stack = new ArrayDeque<Cell>();
@@ -35,8 +35,7 @@ void draw() {
   background(0);
   
   if (!createMazeFinished) {
-    doMaze();
-    doMaze();doMaze();doMaze();doMaze();doMaze();doMaze();doMaze();
+    for (int i=0; i<32; i++) doMaze();
   } else {
     if (!solveMazeFinished) {
       solveMaze();
