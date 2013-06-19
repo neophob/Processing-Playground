@@ -13,10 +13,8 @@ int[] logo = new int[] {
 void drawLogo() {
   pushMatrix();
   
-  int y=0-(height-3*BOXSIZE)/2;  
-  int x=(width-4*BOXSIZE)/2;  
-//  translate(x, y, 0);
   translate(0, 0, 0);
+  //translate(-400, -100, 0);
 
   //translate(BOXSIZE, -BOXSIZE, 0);  
   for (int i=0; i<logo.length; i++) {
