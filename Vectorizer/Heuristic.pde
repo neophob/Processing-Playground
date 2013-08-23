@@ -22,7 +22,7 @@ void initHeuristic() {
   bestSolution    = new TriangleFrame(workingSolution);
 }
 
-int nrOf
+
 void firstFitHeuristic() {
   //insert only if better
 }
