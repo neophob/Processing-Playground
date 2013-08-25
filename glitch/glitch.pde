@@ -17,7 +17,7 @@ final int HEADER_SIZE = 2;
 void setup() {
   //load file to get size
   PImage img = loadImage(FILENAME);
-  size(img.width, img.height, OPENGL);
+  size(img.width, img.height);
   
   //load image in byte array
   srcImage = loadBytes(FILENAME);
@@ -41,11 +41,13 @@ PImage createGlitchImage(byte[] srcImage, int amount) {
     glitchImage[ofs] = byte(random(0xff));
   }
   Image awtImage = Toolkit.getDefaultToolkit().createImage(glitchImage);
+  
+  //all time wasted here, very slow (100ms on my machine)
   return loadImageMT(awtImage);
 }
 
 void keyPressed() {
-  println("save frame");
-  saveFrame("glitch-######.png");
+//  println("save frame");
+//  saveFrame("glitch-######.png");
 }
 
